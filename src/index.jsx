@@ -8,13 +8,16 @@ import './index.css'
 
 // Components
 import Header from './components/header'
+import PageWrapper from './components/pageWrapper'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     <React.StrictMode>
         <BrowserRouter>
             <Header />
-            <Routes></Routes>
+            <PageWrapper>
+                <Routes></Routes>
+            </PageWrapper>
         </BrowserRouter>
     </React.StrictMode>
 )

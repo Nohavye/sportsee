@@ -11,6 +11,7 @@ export const Container = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
 `
 export const Logo = styled.img`
     content: url(${logo});
