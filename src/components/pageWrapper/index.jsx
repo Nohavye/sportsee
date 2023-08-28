@@ -7,15 +7,15 @@ import { useEffect, useState } from 'react'
 import Sidebar from '../sidebar'
 
 function Component({ children }) {
+    const [height, setHeight] = useState()
+
     const heightContainer = () => `
         ${window.innerHeight - document.querySelector('header').clientHeight}px
     `
-    const [height, setHeight] = useState(heightContainer())
 
     useEffect(() => {
-        const handleWindowResize = () => {
-            setHeight(heightContainer)
-        }
+        const handleWindowResize = () => setHeight(heightContainer())
+        setTimeout(() => setHeight(heightContainer()), 25)
         window.addEventListener('resize', handleWindowResize)
 
         return () => {
