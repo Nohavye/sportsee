@@ -7,7 +7,9 @@ import { useEffect, useState } from 'react'
 import Sidebar from '../sidebar'
 
 function Component({ children }) {
-    const heightContainer = () => `${window.innerHeight - 101}px`
+    const heightContainer = () => `
+        ${window.innerHeight - document.querySelector('header').clientHeight}px
+    `
     const [height, setHeight] = useState(heightContainer())
 
     useEffect(() => {
