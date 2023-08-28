@@ -12,11 +12,13 @@ function Component({ children }) {
 
     useEffect(() => {
         const handleWindowResize = () => {
-            setHeight(heightContainer())
+            setHeight(heightContainer)
         }
         window.addEventListener('resize', handleWindowResize)
 
-        return window.removeEventListener('resize', handleWindowResize)
+        return () => {
+            window.removeEventListener('resize', handleWindowResize)
+        }
     }, [])
 
     return (
