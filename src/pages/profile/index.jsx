@@ -4,18 +4,16 @@ import { Container } from './styled'
 import { AppContext } from '../../context'
 import { useContext, useEffect } from 'react'
 
+// Components
+import ProfileHeader from '../../components/profileHeader'
+
 function Page() {
     const { dataUser } = useContext(AppContext)
-
-    useEffect(() => console.log(dataUser.userInfos.firstName))
+    useEffect(() => console.log(dataUser))
 
     return (
         <Container>
-            <h1>Page de profil</h1>
-            <span>
-                User Id: {dataUser.id} Firstname: {dataUser.userInfos.firstName}{' '}
-                Lastname: {dataUser.userInfos.lastName}
-            </span>
+            <ProfileHeader userFirstName={dataUser.userInfos.firstName} />
         </Container>
     )
 }
