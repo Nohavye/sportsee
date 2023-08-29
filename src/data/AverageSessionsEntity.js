@@ -15,8 +15,8 @@ class AverageSession_Entity {
 class AverageSessions_Entity {
     constructor(data) {
         this._userId = data.userId
-        this._sessions = data.sessions.map((session) =>
-            AverageSession_Entity(session)
+        this._sessions = data.sessions.map(
+            (session) => new AverageSession_Entity(session)
         )
     }
 

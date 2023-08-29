@@ -19,8 +19,8 @@ class ActivitySession_Entity {
 class Activity_Entity {
     constructor(data) {
         this._userId = data.userId
-        this._sessions = data.sessions.map((session) =>
-            ActivitySession_Entity(session)
+        this._sessions = data.sessions.map(
+            (session) => new ActivitySession_Entity(session)
         )
     }
 

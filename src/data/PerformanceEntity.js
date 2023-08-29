@@ -16,7 +16,7 @@ class Performance_Entity {
     constructor(data) {
         this._userId = data.userId
         this._kind = data.kind
-        this._data = data.data.map((d) => PerformanceData_Entity(d))
+        this._data = data.data.map((d) => new PerformanceData_Entity(d))
     }
 
     get userId() {

@@ -41,9 +41,9 @@ class UserKeyData_Entity {
 class User_Entity {
     constructor(data) {
         this._id = data.id
-        this._userInfos = UserInfos_Entity(data.userInfos)
+        this._userInfos = new UserInfos_Entity(data.userInfos)
         this._score = data.score
-        this._keyData = UserKeyData_Entity(data.keyData)
+        this._keyData = new UserKeyData_Entity(data.keyData)
     }
 
     get id() {

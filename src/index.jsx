@@ -17,20 +17,25 @@ import ProfilePage from './pages/profile'
 import SettingsPage from './pages/settings'
 import CommunityPage from './pages/community'
 
+// Providers
+import { AppProvider } from './context'
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     <React.StrictMode>
         <BrowserRouter>
-            <Header />
-            <PageWrapper>
-                <Routes>
-                    <Route path="*" element={<ErrorPage />} />
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/profile" element={<ProfilePage />} />
-                    <Route path="/settings" element={<SettingsPage />} />
-                    <Route path="/community" element={<CommunityPage />} />
-                </Routes>
-            </PageWrapper>
+            <AppProvider>
+                <Header />
+                <PageWrapper>
+                    <Routes>
+                        <Route path="*" element={<ErrorPage />} />
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/profile" element={<ProfilePage />} />
+                        <Route path="/settings" element={<SettingsPage />} />
+                        <Route path="/community" element={<CommunityPage />} />
+                    </Routes>
+                </PageWrapper>
+            </AppProvider>
         </BrowserRouter>
     </React.StrictMode>
 )
