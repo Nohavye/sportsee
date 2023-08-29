@@ -1,6 +1,6 @@
 class UserInfos_Entity {
     constructor(data) {
-        this._firstName = data.fistName
+        this._firstName = data.firstName
         this._lastName = data.lastName
         this._age = data.age
     }
