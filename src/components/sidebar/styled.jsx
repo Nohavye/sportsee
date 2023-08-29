@@ -5,7 +5,6 @@ import { Link as RouterLink } from 'react-router-dom'
 export const Container = styled.div`
     position: relative;
     width: 118px;
-    /* height: ${window.innerHeight - 101}px; */
     height: 100%;
     background-color: ${colors.black};
 

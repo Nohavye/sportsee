@@ -8,7 +8,7 @@ import icon_bodybuilding from '../../assets/icon_bodybuilding.svg'
 
 function Component() {
     return (
-        <Container>
+        <Container className="sidebar">
             <Link to="">
                 <img src={icon_yoga} alt="icon" />
             </Link>

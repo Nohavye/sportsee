@@ -6,6 +6,7 @@ import { useContext, useEffect } from 'react'
 
 // Components
 import ProfileHeader from '../../components/profileHeader'
+import ActivityChart from '../../components/activityChart'
 
 function Page() {
     const { dataUser } = useContext(AppContext)
@@ -13,7 +14,10 @@ function Page() {
 
     return (
         <Container>
-            <ProfileHeader userFirstName={dataUser.userInfos.firstName} />
+            {dataUser.userInfos && (
+                <ProfileHeader userFirstName={dataUser.userInfos.firstName} />
+            )}
+            <ActivityChart />
         </Container>
     )
 }
