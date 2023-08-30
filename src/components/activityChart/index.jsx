@@ -14,37 +14,37 @@ import {
 
 const data = [
     {
-        day: '2020-07-01',
+        day: '1',
         kilogram: 70,
         calories: 240,
     },
     {
-        day: '2020-07-02',
+        day: '2',
         kilogram: 69,
         calories: 220,
     },
     {
-        day: '2020-07-03',
+        day: '3',
         kilogram: 70,
         calories: 280,
     },
     {
-        day: '2020-07-04',
+        day: '4',
         kilogram: 70,
         calories: 500,
     },
     {
-        day: '2020-07-05',
+        day: '5',
         kilogram: 69,
         calories: 160,
     },
     {
-        day: '2020-07-06',
+        day: '6',
         kilogram: 69,
         calories: 162,
     },
     {
-        day: '2020-07-07',
+        day: '7',
         kilogram: 69,
         calories: 390,
     },
@@ -97,7 +97,6 @@ const LegendText = (value) => {
 }
 
 const fontAxisStyle = {
-    color: '#9b9eac',
     fontFamily: 'Roboto',
     fontWeight: '500',
     fontSize: '14px',
@@ -113,6 +112,7 @@ function Component() {
                     <XAxis
                         dataKey="day"
                         tickLine={false}
+                        stroke="#9b9eac"
                         style={fontAxisStyle}
                     />
                     <YAxis
@@ -125,6 +125,7 @@ function Component() {
                         orientation="right"
                         axisLine={false}
                         tickLine={false}
+                        stroke="#9b9eac"
                         style={fontAxisStyle}
                     />
                     <YAxis yAxisId="calories" hide={true} />

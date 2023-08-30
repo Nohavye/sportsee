@@ -4,7 +4,7 @@ import { fonts, colors } from '../../styles'
 export const Container = styled.div`
     position: relative;
     box-sizing: border-box;
-    width: 99%;
+    width: 99.9%;
     height: 320px;
 `
 export const Title = styled.h2`

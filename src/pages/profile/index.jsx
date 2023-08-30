@@ -13,6 +13,7 @@ import { useContext, useEffect } from 'react'
 import ProfileHeader from '../../components/profileHeader'
 import ActivityChart from '../../components/activityChart'
 import NutrientsChart from '../../components/nutrientsChart'
+import AverageSessionsChart from '../../components/averageSessionsChart'
 
 function Page() {
     const { dataUser } = useContext(AppContext)
@@ -21,15 +22,21 @@ function Page() {
     return (
         <Container>
             {dataUser.userInfos && (
-                <ProfileHeader userFirstName={dataUser.userInfos.firstName} />
+                <>
+                    <ProfileHeader
+                        userFirstName={dataUser.userInfos.firstName}
+                    />
+                    <ChartsWrapper>
+                        <ChartsWrapperLeft>
+                            <ActivityChart />
+                            <ChartsWrapperBottom>
+                                <AverageSessionsChart />
+                            </ChartsWrapperBottom>
+                        </ChartsWrapperLeft>
+                        <NutrientsChart data={dataUser.keyData} />
+                    </ChartsWrapper>
+                </>
             )}
-            <ChartsWrapper>
-                <ChartsWrapperLeft>
-                    <ActivityChart />
-                    <ChartsWrapperBottom></ChartsWrapperBottom>
-                </ChartsWrapperLeft>
-                <NutrientsChart data={dataUser.keyData} />
-            </ChartsWrapper>
         </Container>
     )
 }

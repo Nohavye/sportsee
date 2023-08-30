@@ -1,9 +1,7 @@
 import styled from 'styled-components'
 import { colors, fonts } from '../../styles'
 
-export const Container = styled.div`
-    border: 1px solid gray;
-`
+export const Container = styled.div``
 export const ItemWrapper = styled.div`
     padding: 45px 0 45px 45px;
     display: flex;
