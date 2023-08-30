@@ -56,7 +56,7 @@ class User_Entity {
         return this._score
     }
     get keyData() {
-        return this.keyData
+        return this._keyData
     }
 }
 

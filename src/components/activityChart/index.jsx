@@ -110,7 +110,11 @@ function Component() {
             <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={data} barGap={8}>
                     <CartesianGrid strokeDasharray="3" vertical={false} />
-                    <XAxis dataKey="day" style={fontAxisStyle} />
+                    <XAxis
+                        dataKey="day"
+                        tickLine={false}
+                        style={fontAxisStyle}
+                    />
                     <YAxis
                         type="number"
                         domain={['dataMin - 5', 'dataMax + 5']}

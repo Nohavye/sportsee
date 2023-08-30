@@ -1,4 +1,9 @@
-import { Container } from './styled'
+import {
+    Container,
+    ChartsWrapper,
+    ChartsWrapperLeft,
+    ChartsWrapperBottom,
+} from './styled'
 
 // Context
 import { AppContext } from '../../context'
@@ -7,17 +12,24 @@ import { useContext, useEffect } from 'react'
 // Components
 import ProfileHeader from '../../components/profileHeader'
 import ActivityChart from '../../components/activityChart'
+import NutrientsChart from '../../components/nutrientsChart'
 
 function Page() {
     const { dataUser } = useContext(AppContext)
-    useEffect(() => console.log(dataUser))
+    useEffect(() => console.log(dataUser.keyData))
 
     return (
         <Container>
             {dataUser.userInfos && (
                 <ProfileHeader userFirstName={dataUser.userInfos.firstName} />
             )}
-            <ActivityChart />
+            <ChartsWrapper>
+                <ChartsWrapperLeft>
+                    <ActivityChart />
+                    <ChartsWrapperBottom></ChartsWrapperBottom>
+                </ChartsWrapperLeft>
+                <NutrientsChart data={dataUser.keyData} />
+            </ChartsWrapper>
         </Container>
     )
 }
