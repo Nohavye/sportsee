@@ -1,24 +1,14 @@
 import styled from 'styled-components'
-import { colors, fonts } from '../../styles'
+import { fonts, colors } from '../../styles'
 
 export const Container = styled.div`
-    border: 1px solid blue;
+    position: relative;
     box-sizing: border-box;
     width: 99%;
-    height: 300px;
+    height: 320px;
 `
-export const TooltipWrapper = styled.div`
-    background-color: ${colors.secondary};
-    padding: 10px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-`
-export const TooltipText = styled.p`
-    color: ${colors.white};
-    font-family: 'Roboto';
-    font-weight: 500;
-    font-size: 10px;
+export const Title = styled.h2`
+    ${fonts.small_title(colors.dark_gray)}
+    position: absolute;
+    top: 6px;
 `
