@@ -1,9 +1,13 @@
 import styled from 'styled-components'
 import { colors, fonts } from '../../styles'
 
-export const Container = styled.div``
+export const Container = styled.div`
+    padding: 15px 0 30px 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`
 export const ItemWrapper = styled.div`
-    padding: 45px 0 45px 45px;
     display: flex;
     align-items: center;
     gap: 20px;

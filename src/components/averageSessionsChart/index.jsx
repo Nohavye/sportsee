@@ -1,13 +1,10 @@
 import { Container, MaskGradient, Title } from './styled'
-import { colors } from '../../styles'
 import {
     LineChart,
     Line,
     XAxis,
     YAxis,
-    CartesianGrid,
     Tooltip,
-    Legend,
     ResponsiveContainer,
 } from 'recharts'
 

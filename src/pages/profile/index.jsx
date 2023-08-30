@@ -15,8 +15,13 @@ import ActivityChart from '../../components/activityChart'
 import NutrientsChart from '../../components/nutrientsChart'
 import AverageSessionsChart from '../../components/averageSessionsChart'
 
+// Hooks
+import { useWindowResizing } from '../../hooks'
+
 function Page() {
     const { dataUser } = useContext(AppContext)
+    const { windowIsResizing } = useWindowResizing()
+
     useEffect(() => console.log(dataUser.keyData))
 
     return (
@@ -26,15 +31,17 @@ function Page() {
                     <ProfileHeader
                         userFirstName={dataUser.userInfos.firstName}
                     />
-                    <ChartsWrapper>
-                        <ChartsWrapperLeft>
-                            <ActivityChart />
-                            <ChartsWrapperBottom>
-                                <AverageSessionsChart />
-                            </ChartsWrapperBottom>
-                        </ChartsWrapperLeft>
-                        <NutrientsChart data={dataUser.keyData} />
-                    </ChartsWrapper>
+                    {!windowIsResizing && (
+                        <ChartsWrapper>
+                            <ChartsWrapperLeft>
+                                <ActivityChart />
+                                <ChartsWrapperBottom>
+                                    <AverageSessionsChart />
+                                </ChartsWrapperBottom>
+                            </ChartsWrapperLeft>
+                            <NutrientsChart data={dataUser.keyData} />
+                        </ChartsWrapper>
+                    )}
                 </>
             )}
         </Container>

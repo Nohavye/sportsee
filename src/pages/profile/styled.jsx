@@ -15,6 +15,9 @@ export const ChartsWrapper = styled.div`
 export const ChartsWrapperLeft = styled.div`
     border: 1px solid gray;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 `
 export const ChartsWrapperBottom = styled.div`
     border: 1px solid gray;
