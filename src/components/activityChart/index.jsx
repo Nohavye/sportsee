@@ -107,7 +107,7 @@ function Component() {
         <Container>
             <Title>Activité quotidienne</Title>
 
-            <ResponsiveContainer width="99%" height="99%">
+            <ResponsiveContainer width="99.9%" height="99.9%">
                 <BarChart data={data} barGap={8}>
                     <CartesianGrid strokeDasharray="3" vertical={false} />
                     <XAxis

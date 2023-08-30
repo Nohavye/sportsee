@@ -14,6 +14,7 @@ import ProfileHeader from '../../components/profileHeader'
 import ActivityChart from '../../components/activityChart'
 import NutrientsChart from '../../components/nutrientsChart'
 import AverageSessionsChart from '../../components/averageSessionsChart'
+import PerformanceChart from '../../components/performanceChart'
 
 // Hooks
 import { useWindowResizing } from '../../hooks'
@@ -37,6 +38,7 @@ function Page() {
                                 <ActivityChart />
                                 <ChartsWrapperBottom>
                                     <AverageSessionsChart />
+                                    <PerformanceChart />
                                 </ChartsWrapperBottom>
                             </ChartsWrapperLeft>
                             <NutrientsChart data={dataUser.keyData} />

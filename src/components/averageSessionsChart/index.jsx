@@ -72,7 +72,7 @@ function Components() {
         <Container>
             <Title>Durée moyenne des sessions</Title>
             <MaskGradient>
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="99.9%" height="99.9%">
                     <LineChart
                         data={data}
                         margin={{

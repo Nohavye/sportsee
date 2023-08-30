@@ -11,7 +11,7 @@ export const Container = styled.div`
 `
 export const MaskGradient = styled.div`
     mask-image: linear-gradient(to right, #ffffff99, white);
-    width: 99.9%;
+    width: 100%;
     height: 100%;
 `
 export const Title = styled.h2`
