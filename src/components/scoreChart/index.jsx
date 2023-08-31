@@ -8,10 +8,10 @@ function Component() {
     return (
         <Container>
             <Title>Score</Title>
-            {/* <Label>
+            <Label>
                 <span className="percent">18%</span>
                 <span>de votre objectif</span>
-            </Label> */}
+            </Label>
             <ResponsiveContainer width="99.9%" height="99.9%">
                 <PieChart width={50} height={50}>
                     <Pie

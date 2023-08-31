@@ -16,4 +16,22 @@ export const Title = styled.h2`
 `
 export const Label = styled.div`
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    ${fonts.large_label(colors.neutral_gray)}
+    text-align: center;
+
+    & span {
+        width: 80px;
+    }
+
+    & .percent {
+        ${fonts.xxl_label(colors.dark_gray)}
+    }
 `
