@@ -6,7 +6,6 @@ import {
     RadarChart,
     PolarGrid,
     PolarAngleAxis,
-    PolarRadiusAxis,
     ResponsiveContainer,
 } from 'recharts'
 
@@ -37,24 +36,30 @@ const data = [
     },
 ]
 
+const fontAxisStyle = {
+    fontFamily: 'Roboto',
+    fontWeight: '500',
+    fontSize: '12px',
+}
+
 function Component() {
     return (
         <Container>
             <ResponsiveContainer width="99.9%" height="99.9%">
                 <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
-                    <PolarGrid stroke="white" />
+                    <PolarGrid stroke="white" radialLines={false} />
                     <PolarAngleAxis
                         dataKey="subject"
                         axisLine={true}
                         tickLine={false}
                         stroke="white"
+                        style={fontAxisStyle}
                     />
-                    {/* <PolarRadiusAxis stroke="white" /> */}
                     <Radar
                         name="Mike"
                         dataKey="value"
-                        stroke="#ff0000"
-                        fill="#ff0000"
+                        stroke={colors.primary}
+                        fill={colors.primary}
                         fillOpacity={0.6}
                     />
                 </RadarChart>

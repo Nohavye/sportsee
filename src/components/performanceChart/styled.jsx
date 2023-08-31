@@ -5,6 +5,12 @@ export const Container = styled.div`
     background-color: ${colors.dark_gray};
     box-sizing: border-box;
     border-radius: 6px;
-    width: 100%;
+    width: 99.9%;
     height: 272px;
+
+    & tspan {
+        font-family: 'Roboto';
+        font-weight: 500;
+        font-size: 12px;
+    }
 `

@@ -8,7 +8,7 @@ import './index.css'
 
 // Components
 import Header from './components/header'
-import PageWrapper from './components/pageWrapper'
+import PagesWrapper from './components/pagesWrapper'
 
 // Pages
 import ErrorPage from './pages/error'
@@ -16,6 +16,7 @@ import HomePage from './pages/home'
 import ProfilePage from './pages/profile'
 import SettingsPage from './pages/settings'
 import CommunityPage from './pages/community'
+import Sidebar from './components/sidebar'
 
 // Providers
 import { AppProvider } from './context'
@@ -25,8 +26,9 @@ root.render(
     <React.StrictMode>
         <BrowserRouter>
             <AppProvider>
+                <Sidebar />
                 <Header />
-                <PageWrapper>
+                <PagesWrapper>
                     <Routes>
                         <Route path="*" element={<ErrorPage />} />
                         <Route path="/" element={<HomePage />} />
@@ -34,7 +36,7 @@ root.render(
                         <Route path="/settings" element={<SettingsPage />} />
                         <Route path="/community" element={<CommunityPage />} />
                     </Routes>
-                </PageWrapper>
+                </PagesWrapper>
             </AppProvider>
         </BrowserRouter>
     </React.StrictMode>

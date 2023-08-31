@@ -3,7 +3,7 @@ import { colors, fonts } from '../../styles'
 import { Link as RouterLink } from 'react-router-dom'
 
 export const Container = styled.div`
-    position: relative;
+    position: fixed;
     width: 118px;
     height: 100%;
     background-color: ${colors.black};

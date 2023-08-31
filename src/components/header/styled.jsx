@@ -6,6 +6,8 @@ import { Link as RouterLink } from 'react-router-dom'
 import logo from '../../assets/sportsee_logo.svg'
 
 export const Container = styled.header`
+    position: fixed;
+    width: 100%;
     padding: 20px 40px;
     background-color: ${colors.black};
     display: flex;
