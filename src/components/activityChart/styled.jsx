@@ -5,7 +5,7 @@ export const Container = styled.div`
     position: relative;
     box-sizing: border-box;
     width: 100%;
-    height: 320px;
+    height: 288px;
 `
 export const Title = styled.h2`
     ${fonts.small_title(colors.dark_gray)}

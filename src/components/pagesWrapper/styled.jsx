@@ -4,10 +4,17 @@ export const Container = styled.div`
     box-sizing: border-box;
     display: flex;
 `
-export const Wrapper = styled.div`
+export const BodyPage = styled.div`
     box-sizing: border-box;
     display: flex;
-    margin-top: 101px;
-    margin-left: 118px;
+    margin-top: 92px;
+    margin-left: 92px;
+    width: 100%;
+`
+export const Wrapper = styled.div`
+    margin: auto;
+    box-sizing: border-box;
+    display: flex;
+    max-width: 1280px;
     width: 100%;
 `
