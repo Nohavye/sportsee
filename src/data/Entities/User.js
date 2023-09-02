@@ -1,4 +1,4 @@
-class UserInfos_Entity {
+class UserInfosEntity {
     constructor(data) {
         this._firstName = data.firstName
         this._lastName = data.lastName
@@ -16,7 +16,7 @@ class UserInfos_Entity {
     }
 }
 
-class UserKeyData_Entity {
+class UserKeyDataEntity {
     constructor(data) {
         this._calorieCount = data.calorieCount
         this._proteinCount = data.proteinCount
@@ -38,12 +38,12 @@ class UserKeyData_Entity {
     }
 }
 
-class User_Entity {
+class UserEntity {
     constructor(data) {
         this._id = data.id
-        this._userInfos = new UserInfos_Entity(data.userInfos)
+        this._userInfos = new UserInfosEntity(data.userInfos)
         this._score = data.score
-        this._keyData = new UserKeyData_Entity(data.keyData)
+        this._keyData = new UserKeyDataEntity(data.keyData)
     }
 
     get id() {
@@ -60,4 +60,4 @@ class User_Entity {
     }
 }
 
-export default User_Entity
+export default UserEntity

@@ -1,26 +1,22 @@
-class ActivitySession_Entity {
+class AverageSessionEntity {
     constructor(data) {
         this._day = data.day
-        this._kilogram = data.kilogram
-        this._calories = data.calories
+        this._sessionLength = data.sessionLength
     }
 
     get day() {
         return this._day
     }
-    get kilogram() {
-        return this._kilogram
-    }
-    get calories() {
-        return this._calories
+    get sessionLength() {
+        return this._sessionLength
     }
 }
 
-class Activity_Entity {
+class AverageSessionsEntity {
     constructor(data) {
         this._userId = data.userId
         this._sessions = data.sessions.map(
-            (session) => new ActivitySession_Entity(session)
+            (session) => new AverageSessionEntity(session)
         )
     }
 
@@ -32,4 +28,4 @@ class Activity_Entity {
     }
 }
 
-export default Activity_Entity
+export default AverageSessionsEntity

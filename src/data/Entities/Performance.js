@@ -1,4 +1,4 @@
-class PerformanceData_Entity {
+class PerformanceDataEntity {
     constructor(data) {
         this._value = data.value
         this._kind = data.kind
@@ -12,11 +12,13 @@ class PerformanceData_Entity {
     }
 }
 
-class Performance_Entity {
+class PerformanceEntity {
     constructor(data) {
         this._userId = data.userId
         this._kind = data.kind
-        this._data = data.data.map((d) => new PerformanceData_Entity(d))
+        this._data = data.data.map(
+            (dataPerformance) => new PerformanceDataEntity(dataPerformance)
+        )
     }
 
     get userId() {
@@ -30,4 +32,4 @@ class Performance_Entity {
     }
 }
 
-export default Performance_Entity
+export default PerformanceEntity

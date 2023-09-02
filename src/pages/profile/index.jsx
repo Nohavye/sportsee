@@ -7,7 +7,7 @@ import {
 
 // Context
 import { AppContext } from '../../context'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 
 // Components
 import ProfileHeader from '../../components/profileHeader'
@@ -16,22 +16,23 @@ import NutrientsChart from '../../components/nutrientsChart'
 import AverageSessionsChart from '../../components/averageSessionsChart'
 import PerformanceChart from '../../components/performanceChart'
 import ScoreChart from '../../components/scoreChart'
+import Loader from '../../components/loader'
 
 // Hooks
 import { useWindowResizing } from '../../hooks'
 
 function Page() {
-    const { dataUser } = useContext(AppContext)
+    const { userData } = useContext(AppContext)
     const { windowIsResizing } = useWindowResizing()
-
-    useEffect(() => console.log(dataUser.keyData))
 
     return (
         <Container>
-            {dataUser.userInfos && (
+            {userData.isLoading ? (
+                <Loader />
+            ) : (
                 <>
                     <ProfileHeader
-                        userFirstName={dataUser.userInfos.firstName}
+                        userFirstName={userData.data.userInfos.firstName}
                     />
                     {!windowIsResizing && (
                         <ChartsWrapper>
@@ -43,7 +44,7 @@ function Page() {
                                     <ScoreChart />
                                 </ChartsWrapperBottom>
                             </ChartsWrapperLeft>
-                            <NutrientsChart data={dataUser.keyData} />
+                            <NutrientsChart data={userData.data.keyData} />
                         </ChartsWrapper>
                     )}
                 </>
