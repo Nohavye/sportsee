@@ -8,37 +8,6 @@ import {
     ResponsiveContainer,
 } from 'recharts'
 
-const data = [
-    {
-        day: 'L',
-        sessionLength: 30,
-    },
-    {
-        day: 'M',
-        sessionLength: 40,
-    },
-    {
-        day: 'M',
-        sessionLength: 50,
-    },
-    {
-        day: 'J',
-        sessionLength: 30,
-    },
-    {
-        day: 'V',
-        sessionLength: 30,
-    },
-    {
-        day: 'S',
-        sessionLength: 50,
-    },
-    {
-        day: 'S',
-        sessionLength: 50,
-    },
-]
-
 const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
         const wrapperStyle = {
@@ -67,14 +36,14 @@ const fontAxisStyle = {
     fontSize: '12px',
 }
 
-function Components() {
+function Components({ data }) {
     return (
         <Container>
             <Title>Durée moyenne des sessions</Title>
             <MaskGradient>
                 <ResponsiveContainer width="99.9%" height="99.9%">
                     <LineChart
-                        data={data}
+                        data={data.sessions}
                         margin={{
                             top: 10,
                             right: 20,

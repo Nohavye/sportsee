@@ -1,17 +1,12 @@
 // Context
 import { createContext, useEffect, useState } from 'react'
-import { useFetch } from '../hooks'
-import { apiRoutes, entity } from '../data'
+import { useApi } from '../hooks'
 
 export const AppContext = createContext()
 
 export function AppProvider({ children }) {
-    const [userId, setUserId] = useState(12)
-    const userData = useFetch(apiRoutes(userId).user, entity.formats.user)
-    console.log(
-        userData.data,
-        `isLoading: ${userData.isLoading}, error: ${userData.error}`
-    )
+    const [userId, setUserId] = useState(18)
+    const { data, loading, error, setParams } = useApi({ userId })
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -29,9 +24,9 @@ export function AppProvider({ children }) {
         }
     }, [userId])
 
-    return (
-        <AppContext.Provider value={{ userData }}>
-            {children}
-        </AppContext.Provider>
-    )
+    useEffect(() => {
+        setParams({ userId })
+    }, [setParams, userId])
+
+    return <AppContext.Provider value={{ data, loading, error }}>{children}</AppContext.Provider>
 }

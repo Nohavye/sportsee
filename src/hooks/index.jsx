@@ -1,64 +1,36 @@
 // Hooks
 import { useCallback, useEffect, useState } from 'react'
 
-// Data Tools
-import { entity } from '../data'
+// Api
+import apiHandler from '../api'
 
-/**
- * Hook personnalisé pour effectuer des requêtes de données.
- *
- * @param {string} url - L'URL à partir de laquelle les données doivent être récupérées.
- * @returns {Object} Les fonctions et les états pour gérer les requêtes de données.
- */
-export function useFetch({ url, route, key }, entityFormat) {
+export function useApi() {
+    const [params, setParams] = useState()
     const [data, setData] = useState({})
-    const [isLoading, setLoading] = useState(true)
-    const [isReloading, setReloading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
 
     useEffect(() => {
-        if (!url) return
-        if (!route) return
+        apiHandler.addDataListener((value) => {
+            setData(value)
+        })
+        apiHandler.addLoadingListener((value) => {
+            setLoading(value)
+        })
+        apiHandler.addErrorListener((value) => {
+            setError(value)
+        })
 
-        const urlRoute = url + route
-
-        /**
-         * Effectue la requête de données.
-         */
-        async function fetchData() {
-            setLoading(true)
-
-            try {
-                const response = await fetch(urlRoute)
-                if (response.ok) {
-                    const jsonData = await response.json()
-                    const retunedData = key ? jsonData[key] : jsonData
-                    entityFormat
-                        ? setData(entity.create(retunedData, entityFormat))
-                        : setData(retunedData)
-                } else {
-                    throw new Error(
-                        `${response.status} (${response.statusText}) on the request ${response.url}`
-                    )
-                }
-            } catch (error) {
-                console.error(error)
-                setError(true)
-            } finally {
-                setLoading(false)
-            }
+        return () => {
+            apiHandler.removeListeners()
         }
+    }, [])
 
-        fetchData()
-        setReloading(false)
-    }, [url, route, key, isReloading])
+    useEffect(() => {
+        if (params) apiHandler.loadEndpoints(params)
+    }, [params])
 
-    /**
-     * Recharge les données.
-     */
-    const reload = () => setReloading(true)
-
-    return { reload, data, isLoading, error }
+    return { data, loading, error, setParams }
 }
 
 export function useWindowResizing() {

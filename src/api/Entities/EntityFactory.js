@@ -1,8 +1,8 @@
 // Entities
-import ActivityEntity from './Entities/Activity'
-import AverageSessionsEntity from './Entities/AverageSessions'
-import PerformanceEntity from './Entities/Performance'
-import UserEntity from './Entities/User'
+import ActivityEntity from './Activity'
+import AverageSessionsEntity from './AverageSessions'
+import PerformanceEntity from './Performance'
+import UserEntity from './User'
 
 export const EntityFormats = Object.freeze({
     activity: Symbol('activity'),

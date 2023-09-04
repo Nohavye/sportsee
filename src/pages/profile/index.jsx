@@ -1,13 +1,11 @@
-import {
-    Container,
-    ChartsWrapper,
-    ChartsWrapperLeft,
-    ChartsWrapperBottom,
-} from './styled'
+import { Container, ChartsWrapper, ChartsWrapperLeft, ChartsWrapperBottom } from './styled'
 
 // Context
 import { AppContext } from '../../context'
+
+// Hooks
 import { useContext } from 'react'
+import { useWindowResizing } from '../../hooks'
 
 // Components
 import ProfileHeader from '../../components/profileHeader'
@@ -18,33 +16,28 @@ import PerformanceChart from '../../components/performanceChart'
 import ScoreChart from '../../components/scoreChart'
 import Loader from '../../components/loader'
 
-// Hooks
-import { useWindowResizing } from '../../hooks'
-
 function Page() {
-    const { userData } = useContext(AppContext)
     const { windowIsResizing } = useWindowResizing()
+    const { loadEndpoints, data, loading, error } = useContext(AppContext)
 
     return (
         <Container>
-            {userData.isLoading ? (
+            {loading ? (
                 <Loader />
             ) : (
                 <>
-                    <ProfileHeader
-                        userFirstName={userData.data.userInfos.firstName}
-                    />
+                    <ProfileHeader userFirstName={data.user.userInfos.firstName} />
                     {!windowIsResizing && (
                         <ChartsWrapper>
                             <ChartsWrapperLeft>
-                                <ActivityChart />
+                                <ActivityChart data={data.activity} />
                                 <ChartsWrapperBottom>
-                                    <AverageSessionsChart />
+                                    <AverageSessionsChart data={data.averageSessions} />
                                     <PerformanceChart />
                                     <ScoreChart />
                                 </ChartsWrapperBottom>
                             </ChartsWrapperLeft>
-                            <NutrientsChart data={userData.data.keyData} />
+                            <NutrientsChart data={data.user.keyData} />
                         </ChartsWrapper>
                     )}
                 </>

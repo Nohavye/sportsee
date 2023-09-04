@@ -12,44 +12,6 @@ import {
     ResponsiveContainer,
 } from 'recharts'
 
-const data = [
-    {
-        day: '1',
-        kilogram: 70,
-        calories: 240,
-    },
-    {
-        day: '2',
-        kilogram: 69,
-        calories: 220,
-    },
-    {
-        day: '3',
-        kilogram: 70,
-        calories: 280,
-    },
-    {
-        day: '4',
-        kilogram: 70,
-        calories: 500,
-    },
-    {
-        day: '5',
-        kilogram: 69,
-        calories: 160,
-    },
-    {
-        day: '6',
-        kilogram: 69,
-        calories: 162,
-    },
-    {
-        day: '7',
-        kilogram: 69,
-        calories: 390,
-    },
-]
-
 const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
         const wrapperStyle = {
@@ -102,13 +64,13 @@ const fontAxisStyle = {
     fontSize: '14px',
 }
 
-function Component() {
+function Component({ data }) {
     return (
         <Container>
             <Title>Activité quotidienne</Title>
 
             <ResponsiveContainer width="99.9%" height="99.9%">
-                <BarChart data={data} barGap={8}>
+                <BarChart data={data.sessions} barGap={8}>
                     <CartesianGrid strokeDasharray="3" vertical={false} />
                     <XAxis
                         dataKey="day"
