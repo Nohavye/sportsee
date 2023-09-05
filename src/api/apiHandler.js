@@ -42,8 +42,9 @@ export class ApiSettings {
 }
 
 export class ApiHandler {
-    constructor(apiSettings) {
+    constructor(apiSettings, defaultEndpointArgs = {}) {
         this._apiSettings = apiSettings
+        this._defaultEndpointArgs = defaultEndpointArgs
         this._listeners = {
             data: null,
             loading: null,
@@ -52,23 +53,28 @@ export class ApiHandler {
         this._data = {}
     }
 
-    addDataListener(callback) {
+    setDefaultEndpointArgs(args) {
+        this._defaultEndpointArgs = args
+    }
+
+    attachDataListener(callback) {
         this._listeners.data = callback
     }
-    addLoadingListener(callback) {
+    attachLoadingListener(callback) {
         this._listeners.loading = callback
     }
-    addErrorListener(callback) {
+    attachErrorListener(callback) {
         this._listeners.error = callback
     }
-    removeListeners() {
+    detachListeners() {
         for (const prop in this._listeners) {
             this._listeners[prop] = null
         }
     }
 
-    async _fetchEndpoint(name, params) {
-        const endpoint = this._apiSettings.getEndpoint(name, params)
+    async _fetchEndpoint(name, mergedEndpointArgs) {
+        const endpointsArgs = { ...this._defaultEndpointArgs, ...mergedEndpointArgs }
+        const endpoint = this._apiSettings.getEndpoint(name, endpointsArgs)
 
         try {
             const response = await fetch(endpoint.value)
@@ -85,20 +91,42 @@ export class ApiHandler {
         }
     }
 
-    loadEndpoints(params) {
+    loadEndpoints(EndpointNames, mergedEndpointArgs = {}) {
         this._listeners.loading(true)
 
         const promises = []
-        this._apiSettings.getEndpointsNames().forEach((name) => {
-            promises.push(this._fetchEndpoint(name, params))
+        EndpointNames.forEach((name) => {
+            promises.push(this._fetchEndpoint(name, mergedEndpointArgs))
         })
 
         Promise.all(promises)
-            .then((data) => {
+            .then(() => {
                 this._listeners.data(this._data)
             })
             .catch((error) => {
                 this._listeners.error(true)
+                console.error(error)
+            })
+            .finally(() => {
+                this._listeners.loading(false)
+            })
+    }
+
+    loadAllEndpoints(mergedEndpointsArgs = {}) {
+        this._listeners.loading(true)
+
+        const promises = []
+        this._apiSettings.getEndpointsNames().forEach((name) => {
+            promises.push(this._fetchEndpoint(name, mergedEndpointsArgs))
+        })
+
+        Promise.all(promises)
+            .then(() => {
+                this._listeners.data(this._data)
+            })
+            .catch((error) => {
+                this._listeners.error(true)
+                console.error(error)
             })
             .finally(() => {
                 this._listeners.loading(false)

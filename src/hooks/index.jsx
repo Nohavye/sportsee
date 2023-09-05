@@ -5,32 +5,35 @@ import { useCallback, useEffect, useState } from 'react'
 import apiHandler from '../api'
 
 export function useApi() {
-    const [params, setParams] = useState()
+    const [endpoints, setEndpoints] = useState()
+    const [mergedEndpointArgs, setMergedEndpointArgs] = useState({})
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
 
     useEffect(() => {
-        apiHandler.addDataListener((value) => {
+        apiHandler.setDefaultEndpointArgs({ userId: '12' })
+
+        apiHandler.attachDataListener((value) => {
             setData(value)
         })
-        apiHandler.addLoadingListener((value) => {
+        apiHandler.attachLoadingListener((value) => {
             setLoading(value)
         })
-        apiHandler.addErrorListener((value) => {
+        apiHandler.attachErrorListener((value) => {
             setError(value)
         })
 
         return () => {
-            apiHandler.removeListeners()
+            apiHandler.detachListeners()
         }
     }, [])
 
     useEffect(() => {
-        if (params) apiHandler.loadEndpoints(params)
-    }, [params])
+        if (endpoints) apiHandler.loadEndpoints(endpoints, mergedEndpointArgs)
+    }, [mergedEndpointArgs, endpoints])
 
-    return { data, loading, error, setParams }
+    return { data, loading, error, setEndpoints, setMergedEndpointArgs }
 }
 
 export function useWindowResizing() {
