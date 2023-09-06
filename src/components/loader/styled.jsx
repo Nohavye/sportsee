@@ -12,8 +12,8 @@ const rotate = keyframes`
 export const Container = styled.div`
     display: flex;
     justify-content: center;
-    align-items: end;
-    height: 46vh;
+    align-items: center;
+    height: 100%;
     width: 100%;
 `
 export const Spinner = styled.div`

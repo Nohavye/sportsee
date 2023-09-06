@@ -2,14 +2,6 @@ import { Container, Spinner } from './styled'
 import { useFetch } from '../../hooks'
 import React from 'react'
 
-function Loader() {
-    return (
-        <Container>
-            <Spinner />
-        </Container>
-    )
-}
-
 export function Component({ children, endpointNames, endpointsArgs }) {
     const { isLoading, data, error } = useFetch(endpointNames, endpointsArgs)
 
@@ -23,9 +15,10 @@ export function Component({ children, endpointNames, endpointsArgs }) {
         </Container>
     ) : (
         React.Children.map(children, (child) => {
-            return React.cloneElement(child, { data })
+            const distributedData = child.props.endpointName ? data[child.props.endpointName] : data
+            return React.cloneElement(child, { data: distributedData })
         })
     )
 }
 
-export default Loader
+export default Component
