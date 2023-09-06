@@ -1,2 +1,2 @@
-import { apiHandler } from './apiConstants'
-export default apiHandler
+import { apiSettings } from './apiConstants'
+export default apiSettings

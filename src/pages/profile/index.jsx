@@ -18,7 +18,7 @@ import Loader from '../../components/loader'
 
 function Page() {
     const { windowIsResizing } = useWindowResizing()
-    const { loadEndpoints, data, loading, error } = useContext(AppContext)
+    const { data, loading, error } = useContext(AppContext)
 
     return (
         <Container>
