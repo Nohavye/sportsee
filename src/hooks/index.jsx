@@ -11,7 +11,7 @@ export function useWindowResizing() {
     const reset = useCallback(() => {
         setTimeout(() => {
             setWindowIsResizing(false)
-        }, 250)
+        }, 200)
     }, [])
 
     useEffect(() => {
@@ -30,9 +30,13 @@ export function useWindowResizing() {
     return { windowIsResizing }
 }
 
-export function useFetch(endpointNames, endpointsArgs) {
+export function useFetch(endpointNames, endpointsArgs = {}) {
+    const [lastEndpointNames, setLastEndpointNames] = useState()
+    const [lastEndpointsArgs, setLastEndpointsArgs] = useState()
+
     const [data, setData] = useState([])
     const [isLoading, setLoading] = useState(true)
+    const [isReload, setIsReload] = useState(false)
     const [error, setError] = useState(false)
 
     useEffect(() => {
@@ -46,11 +50,17 @@ export function useFetch(endpointNames, endpointsArgs) {
                 const response = await fetch(endpoint.value)
                 if (response.ok) {
                     const jsonData = await response.json()
-                    const keyData = endpoint.key ? jsonData[endpoint.key] : jsonData
-                    const formatedData = endpoint.outputEntity ? Entity.create(keyData, endpoint.output) : keyData
+                    const keyData = endpoint.key
+                        ? jsonData[endpoint.key]
+                        : jsonData
+                    const formatedData = endpoint.outputEntity
+                        ? Entity.create(keyData, endpoint.output)
+                        : keyData
                     dataList[name] = formatedData
                 } else {
-                    throw new Error(`${response.status} (${response.statusText}) on the request ${response.url}`)
+                    throw new Error(
+                        `${response.status} (${response.statusText}) on the request ${response.url}`
+                    )
                 }
             } catch (error) {
                 throw error
@@ -82,8 +92,45 @@ export function useFetch(endpointNames, endpointsArgs) {
                 })
         }
 
-        loadEndpoints()
-    }, [endpointNames, endpointsArgs, error])
+        function refreshData() {
+            setLastEndpointNames(endpointNames)
+            setLastEndpointsArgs(endpointsArgs)
+            loadEndpoints()
+        }
 
-    return { isLoading, data, error }
+        function paramsHaveBeenChanged() {
+            if (
+                JSON.stringify(lastEndpointNames) !==
+                JSON.stringify(endpointNames)
+            ) {
+                return true
+            }
+            if (
+                JSON.stringify(lastEndpointsArgs) !==
+                JSON.stringify(endpointsArgs)
+            ) {
+                return true
+            }
+            return false
+        }
+
+        if (!lastEndpointNames || isReload) {
+            refreshData()
+            if (isReload) setIsReload(false)
+        } else {
+            if (paramsHaveBeenChanged()) refreshData()
+        }
+    }, [
+        endpointNames,
+        endpointsArgs,
+        lastEndpointNames,
+        lastEndpointsArgs,
+        isReload,
+    ])
+
+    function reload() {
+        setIsReload(true)
+    }
+
+    return { reload, isLoading, data, error }
 }

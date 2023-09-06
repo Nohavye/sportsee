@@ -8,11 +8,21 @@ export function Component({ children, endpointNames, endpointsArgs }) {
     function modifiedChild(child) {
         if (child.props.endpointName) {
             return React.cloneElement(child, {
-                data: child.props.endpointName === '*' ? data : data[child.props.endpointName],
+                data:
+                    child.props.endpointName === '*'
+                        ? data
+                        : data[child.props.endpointName],
             })
         } else {
             return child
         }
+    }
+
+    function handleChildren(children) {
+        const modifiedChildren = React.Children.map(children, (child) =>
+            handleChild(child)
+        )
+        return modifiedChildren
     }
 
     function handleChild(child) {
@@ -29,11 +39,6 @@ export function Component({ children, endpointNames, endpointsArgs }) {
         }
 
         return child
-    }
-
-    function handleChildren(children) {
-        const modifiedChildren = React.Children.map(children, (child) => handleChild(child))
-        return modifiedChildren
     }
 
     function parentWrapper(content) {
@@ -53,7 +58,7 @@ export function Component({ children, endpointNames, endpointsArgs }) {
         ? parentWrapper(<p>Erreur</p>)
         : isLoading
         ? parentWrapper(<Spinner />)
-        : handleChild(children)
+        : handleChildren(children)
 }
 
 export default Component

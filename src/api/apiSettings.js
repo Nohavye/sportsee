@@ -1,6 +1,4 @@
-import Entity from './Entities'
-
-export const dataSetting = (name, route, key, output) => {
+export const dataSetting = ({ name, route, key, output }) => {
     return { name, route, key, output }
 }
 

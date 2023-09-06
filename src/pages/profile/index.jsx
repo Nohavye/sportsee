@@ -1,4 +1,9 @@
-import { Container, ChartsWrapper, ChartsWrapperLeft, ChartsWrapperBottom } from './styled'
+import {
+    Container,
+    ChartsWrapper,
+    ChartsWrapperLeft,
+    ChartsWrapperBottom,
+} from './styled'
 
 // Context
 import { AppContext } from '../../context'
@@ -18,30 +23,31 @@ import Loader from '../../components/loader'
 
 function Page() {
     const { windowIsResizing } = useWindowResizing()
-    const { data, loading, error } = useContext(AppContext)
+    const { userId } = useContext(AppContext)
 
     return (
         <Container>
-            {loading ? (
-                <Loader />
-            ) : (
-                <>
-                    <ProfileHeader userFirstName={data.user.userInfos.firstName} />
-                    {!windowIsResizing && (
-                        <ChartsWrapper>
+            <Loader
+                endpointNames={['user', 'activity', 'averageSessions']}
+                endpointsArgs={{ userId }}
+            >
+                <ProfileHeader endpointName="user" />
+                {!windowIsResizing && (
+                    <ChartsWrapper>
+                        <>
                             <ChartsWrapperLeft>
-                                <ActivityChart data={data.activity} />
+                                <ActivityChart endpointName="activity" />
                                 <ChartsWrapperBottom>
-                                    <AverageSessionsChart data={data.averageSessions} />
+                                    <AverageSessionsChart endpointName="averageSessions" />
                                     <PerformanceChart />
                                     <ScoreChart />
                                 </ChartsWrapperBottom>
                             </ChartsWrapperLeft>
-                            <NutrientsChart data={data.user.keyData} />
-                        </ChartsWrapper>
-                    )}
-                </>
-            )}
+                            <NutrientsChart endpointName="user" />
+                        </>
+                    </ChartsWrapper>
+                )}
+            </Loader>
         </Container>
     )
 }

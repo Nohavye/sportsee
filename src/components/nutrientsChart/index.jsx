@@ -21,7 +21,9 @@ function Component({ data }) {
                     <NutrientIcon src={iconCalories} alt="icon" />
                 </IconWrapper>
                 <TextWrapper>
-                    <NutrientValue>{data.calorieCount}kCal</NutrientValue>
+                    <NutrientValue>
+                        {data.keyData.calorieCount}kCal
+                    </NutrientValue>
                     <NutrientLabel>Calories</NutrientLabel>
                 </TextWrapper>
             </ItemWrapper>
@@ -31,7 +33,7 @@ function Component({ data }) {
                     <NutrientIcon src={iconProteins} alt="icon" />
                 </IconWrapper>
                 <TextWrapper>
-                    <NutrientValue>{data.proteinCount}g</NutrientValue>
+                    <NutrientValue>{data.keyData.proteinCount}g</NutrientValue>
                     <NutrientLabel>Proteines</NutrientLabel>
                 </TextWrapper>
             </ItemWrapper>
@@ -41,7 +43,9 @@ function Component({ data }) {
                     <NutrientIcon src={iconCarbohydrates} alt="icon" />
                 </IconWrapper>
                 <TextWrapper>
-                    <NutrientValue>{data.carbohydrateCount}g</NutrientValue>
+                    <NutrientValue>
+                        {data.keyData.carbohydrateCount}g
+                    </NutrientValue>
                     <NutrientLabel>Glucides</NutrientLabel>
                 </TextWrapper>
             </ItemWrapper>
@@ -51,7 +55,7 @@ function Component({ data }) {
                     <NutrientIcon src={iconLipids} alt="icon" />
                 </IconWrapper>
                 <TextWrapper>
-                    <NutrientValue>{data.lipidCount}g</NutrientValue>
+                    <NutrientValue>{data.keyData.lipidCount}g</NutrientValue>
                     <NutrientLabel>Lipides</NutrientLabel>
                 </TextWrapper>
             </ItemWrapper>
