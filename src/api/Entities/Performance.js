@@ -1,7 +1,7 @@
 class PerformanceDataEntity {
-    constructor(data) {
+    constructor(data, kindValue) {
         this._value = data.value
-        this._kind = data.kind
+        this._kind = kindValue
     }
 
     get value() {
@@ -15,9 +15,9 @@ class PerformanceDataEntity {
 class PerformanceEntity {
     constructor(data) {
         this._userId = data.userId
-        this._kind = data.kind
         this._data = data.data.map(
-            (dataPerformance) => new PerformanceDataEntity(dataPerformance)
+            (dataPerformance) =>
+                new PerformanceDataEntity(dataPerformance, data.kind[dataPerformance.kind])
         )
     }
 

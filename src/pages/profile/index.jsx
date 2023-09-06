@@ -1,9 +1,4 @@
-import {
-    Container,
-    ChartsWrapper,
-    ChartsWrapperLeft,
-    ChartsWrapperBottom,
-} from './styled'
+import { Container, ChartsWrapper, ChartsWrapperLeft, ChartsWrapperBottom } from './styled'
 
 // Context
 import { AppContext } from '../../context'
@@ -28,7 +23,7 @@ function Page() {
     return (
         <Container>
             <Loader
-                endpointNames={['user', 'activity', 'averageSessions']}
+                endpointNames={['user', 'activity', 'averageSessions', 'performance']}
                 endpointsArgs={{ userId }}
             >
                 <ProfileHeader endpointName="user" />
@@ -39,8 +34,8 @@ function Page() {
                                 <ActivityChart endpointName="activity" />
                                 <ChartsWrapperBottom>
                                     <AverageSessionsChart endpointName="averageSessions" />
-                                    <PerformanceChart />
-                                    <ScoreChart />
+                                    <PerformanceChart endpointName="performance" />
+                                    <ScoreChart endpointName="user" />
                                 </ChartsWrapperBottom>
                             </ChartsWrapperLeft>
                             <NutrientsChart endpointName="user" />

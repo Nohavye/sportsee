@@ -50,10 +50,8 @@ export function useFetch(endpointNames, endpointsArgs = {}) {
                 const response = await fetch(endpoint.value)
                 if (response.ok) {
                     const jsonData = await response.json()
-                    const keyData = endpoint.key
-                        ? jsonData[endpoint.key]
-                        : jsonData
-                    const formatedData = endpoint.outputEntity
+                    const keyData = endpoint.key ? jsonData[endpoint.key] : jsonData
+                    const formatedData = endpoint.output
                         ? Entity.create(keyData, endpoint.output)
                         : keyData
                     dataList[name] = formatedData
@@ -99,16 +97,10 @@ export function useFetch(endpointNames, endpointsArgs = {}) {
         }
 
         function paramsHaveBeenChanged() {
-            if (
-                JSON.stringify(lastEndpointNames) !==
-                JSON.stringify(endpointNames)
-            ) {
+            if (JSON.stringify(lastEndpointNames) !== JSON.stringify(endpointNames)) {
                 return true
             }
-            if (
-                JSON.stringify(lastEndpointsArgs) !==
-                JSON.stringify(endpointsArgs)
-            ) {
+            if (JSON.stringify(lastEndpointsArgs) !== JSON.stringify(endpointsArgs)) {
                 return true
             }
             return false
@@ -120,13 +112,7 @@ export function useFetch(endpointNames, endpointsArgs = {}) {
         } else {
             if (paramsHaveBeenChanged()) refreshData()
         }
-    }, [
-        endpointNames,
-        endpointsArgs,
-        lastEndpointNames,
-        lastEndpointsArgs,
-        isReload,
-    ])
+    }, [endpointNames, endpointsArgs, lastEndpointNames, lastEndpointsArgs, isReload])
 
     function reload() {
         setIsReload(true)

@@ -26,7 +26,6 @@ export class ApiSettings {
     getEndpoint(name, params = {}) {
         const endpoint = { ...this._endpoints[name] }
         endpoint.value = this._replaceParams(endpoint.value, params)
-        console.log(endpoint.value)
         return endpoint
     }
 

@@ -42,7 +42,11 @@ class UserEntity {
     constructor(data) {
         this._id = data.id
         this._userInfos = new UserInfosEntity(data.userInfos)
-        this._score = data.score
+        if (data.score) {
+            this._score = [{ value: 100 - data.score * 100 }, { value: data.score * 100 }]
+        } else if (data.todayScore) {
+            this._score = [{ value: 100 - data.todayScore * 100 }, { value: data.todayScore * 100 }]
+        }
         this._keyData = new UserKeyDataEntity(data.keyData)
     }
 
