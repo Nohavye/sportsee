@@ -2,8 +2,13 @@ import { Container } from './styled'
 
 import Loader from '../../components/loader'
 
-function ChildComponents({ data }) {
-    return <p style={{ border: '1px solid red', marginTop: '40px' }}>{JSON.stringify(data)}</p>
+function ChildComponents({ data, children }) {
+    return (
+        <div style={{ border: '1px solid red', marginTop: '40px', padding: '10px' }}>
+            <p>{JSON.stringify(data)}</p>
+            {children}
+        </div>
+    )
 }
 
 function Page() {
@@ -11,8 +16,12 @@ function Page() {
         <Container>
             <h1>Page d'accueil</h1>
             <Loader endpointNames={['user', 'activity']} endpointsArgs={{ userId: '12' }}>
-                <ChildComponents endpointName="user" />
-                <ChildComponents endpointName="activity" />
+                <div className="parentWrapper" style={{ border: '1px solid red' }}>
+                    <ChildComponents endpointName="*">
+                        <ChildComponents endpointName="user" />
+                        <ChildComponents endpointName="activity" />
+                    </ChildComponents>
+                </div>
             </Loader>
         </Container>
     )
