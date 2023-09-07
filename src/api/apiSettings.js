@@ -30,10 +30,6 @@ export class ApiSettings {
     }
 
     getEndpointsNames() {
-        const endpointsNames = []
-        for (const name in this._endpoints) {
-            endpointsNames.push(name)
-        }
-        return endpointsNames
+        return Object.keys(this._endpoints)
     }
 }
