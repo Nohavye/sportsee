@@ -50,10 +50,10 @@ export function useFetch(endpointNames, endpointsArgs = {}) {
                 const response = await fetch(endpoint.value)
                 if (response.ok) {
                     const jsonData = await response.json()
-                    const keyData = endpoint.key ? jsonData[endpoint.key] : jsonData
+                    const dataInField = endpoint.dataField ? jsonData[endpoint.dataField] : jsonData
                     const formatedData = endpoint.output
-                        ? Entity.create(keyData, endpoint.output)
-                        : keyData
+                        ? Entity.create(dataInField, endpoint.output)
+                        : dataInField
                     dataList[name] = formatedData
                 } else {
                     throw new Error(

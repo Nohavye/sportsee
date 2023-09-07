@@ -1,29 +1,33 @@
-import { dataSetting, ApiSettings } from './apiSettings'
-import Entity from './Entities'
+import { endpointSetting, ApiSettings } from './apiSettings'
+import { EntityFormats } from './Entities/EntityFactory'
 
+/**
+ * Configuration des paramètres de l'API.
+ * @type {ApiSettings}
+ */
 export const apiSettings = new ApiSettings('http://localhost:3000', [
-    dataSetting({
+    endpointSetting({
         name: 'user',
         route: '/user/:userId',
-        key: 'data',
-        output: Entity.formats.user,
+        dataField: 'data',
+        output: EntityFormats.user,
     }),
-    dataSetting({
+    endpointSetting({
         name: 'activity',
         route: '/user/:userId/activity',
-        key: 'data',
-        output: Entity.formats.activity,
+        dataField: 'data',
+        output: EntityFormats.activity,
     }),
-    dataSetting({
+    endpointSetting({
         name: 'averageSessions',
         route: '/user/:userId/average-sessions',
-        key: 'data',
-        output: Entity.formats.averageSessions,
+        dataField: 'data',
+        output: EntityFormats.averageSessions,
     }),
-    dataSetting({
+    endpointSetting({
         name: 'performance',
         route: '/user/:userId/performance',
-        key: 'data',
-        output: Entity.formats.performance,
+        dataField: 'data',
+        output: EntityFormats.performance,
     }),
 ])
