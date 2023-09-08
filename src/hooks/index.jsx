@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 // Api
-import apiSettings from '../api'
+import { apiSettings } from '../api/apiConstants'
 import Entity from '../api/Entities'
 
 /**
@@ -63,7 +63,7 @@ export function useWindowResizing() {
  * // Exemple d'utilisation du hook useFetch pour charger les données de l'utilisateur.
  * const { reload, isLoading, data, error } = useFetch(['user'], { userId: 123 });
  */
-export function useFetch(endpointNames, endpointsArgs = {}) {
+export function useFetch(endpoints, endpointsArgs = {}) {
     const [lastEndpointNames, setLastEndpointNames] = useState()
     const [lastEndpointsArgs, setLastEndpointsArgs] = useState()
 
@@ -73,21 +73,24 @@ export function useFetch(endpointNames, endpointsArgs = {}) {
     const [error, setError] = useState(false)
 
     useEffect(() => {
-        if (!endpointNames) return
+        if (!endpoints) return
         const dataList = {}
 
-        async function fetchEndpoint(name, endpointsArgs) {
-            const endpoint = apiSettings.getEndpoint(name, endpointsArgs)
+        async function fetchEndpoint(endpoint, endpointsArgs) {
+            // const endpoint = apiSettings.getEndpoint(name, endpointsArgs)
+            const fetchedEndpoint = apiSettings.getEndpoint(endpoint, endpointsArgs)
 
             try {
-                const response = await fetch(endpoint.value)
+                const response = await fetch(fetchedEndpoint.value)
                 if (response.ok) {
                     const jsonData = await response.json()
-                    const dataInField = endpoint.dataField ? jsonData[endpoint.dataField] : jsonData
-                    const formatedData = endpoint.output
-                        ? Entity.create(dataInField, endpoint.output)
+                    const dataInField = fetchedEndpoint.dataField
+                        ? jsonData[fetchedEndpoint.dataField]
+                        : jsonData
+                    const formatedData = fetchedEndpoint.output
+                        ? Entity.create(dataInField, fetchedEndpoint.output)
                         : dataInField
-                    dataList[name] = formatedData
+                    dataList[fetchedEndpoint.name] = formatedData
                 } else {
                     throw new Error(
                         `${response.status} (${response.statusText}) on the request ${response.url}`
@@ -102,12 +105,16 @@ export function useFetch(endpointNames, endpointsArgs = {}) {
             setLoading(true)
 
             const promises = []
-            endpointNames.forEach((name) => {
-                if (apiSettings.getEndpointsNames().includes(name)) {
-                    promises.push(fetchEndpoint(name, endpointsArgs))
-                } else {
-                    setError(true)
-                }
+            // endpointNames.forEach((name) => {
+            //     if (apiSettings.getEndpointsNames().includes(name)) {
+            //         promises.push(fetchEndpoint(name, endpointsArgs))
+            //     } else {
+            //         setError(true)
+            //     }
+            // })
+
+            endpoints.forEach((endpoint) => {
+                promises.push(fetchEndpoint(endpoint, endpointsArgs))
             })
 
             Promise.all(promises)
@@ -124,13 +131,13 @@ export function useFetch(endpointNames, endpointsArgs = {}) {
         }
 
         function refreshData() {
-            setLastEndpointNames(endpointNames)
+            setLastEndpointNames(endpoints)
             setLastEndpointsArgs(endpointsArgs)
             loadEndpoints()
         }
 
         function paramsHaveBeenChanged() {
-            if (JSON.stringify(lastEndpointNames) !== JSON.stringify(endpointNames)) {
+            if (JSON.stringify(lastEndpointNames) !== JSON.stringify(endpoints)) {
                 return true
             }
             if (JSON.stringify(lastEndpointsArgs) !== JSON.stringify(endpointsArgs)) {
@@ -145,7 +152,7 @@ export function useFetch(endpointNames, endpointsArgs = {}) {
         } else {
             if (paramsHaveBeenChanged()) refreshData()
         }
-    }, [endpointNames, endpointsArgs, lastEndpointNames, lastEndpointsArgs, isReload])
+    }, [endpoints, endpointsArgs, lastEndpointNames, lastEndpointsArgs, isReload])
 
     /**
      * Recharge les données en appelant à nouveau les endpoints avec les paramètres actuels.

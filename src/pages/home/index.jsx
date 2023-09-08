@@ -1,6 +1,7 @@
 import { Container } from './styled'
 
 import Loader from '../../components/loader'
+import { endpoints } from '../../api/apiConstants'
 
 function ChildComponents({ data, children }) {
     return (
@@ -22,16 +23,13 @@ function Page() {
         <Container>
             <h1>Page d'accueil</h1>
             <Loader
-                endpointNames={['user', 'activity']}
+                endpoints={[endpoints.user, endpoints.activity]}
                 endpointsArgs={{ userId: '12' }}
             >
-                <div
-                    className="parentWrapper"
-                    style={{ border: '1px solid red' }}
-                >
-                    <ChildComponents endpointName="*">
-                        <ChildComponents endpointName="user" />
-                        <ChildComponents endpointName="activity" />
+                <div className="parentWrapper" style={{ border: '1px solid red' }}>
+                    <ChildComponents endpoints={[endpoints.user, endpoints.activity]}>
+                        <ChildComponents endpoints={[endpoints.user]} />
+                        <ChildComponents endpoints={[endpoints.activity]} />
                     </ChildComponents>
                 </div>
                 <div></div>

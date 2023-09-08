@@ -46,11 +46,25 @@ import React from 'react'
  */
 export function Component({
     children,
-    endpointNames,
+    endpoints,
     endpointsArgs,
     errorMessage = 'Oups… Il y a eu un problème pendant le traitement des requêtes.',
 }) {
-    const { isLoading, data, error } = useFetch(endpointNames, endpointsArgs)
+    const { isLoading, data, error } = useFetch(endpoints, endpointsArgs)
+
+    function sendData(endpoints) {
+        let sendedData = {}
+
+        if (endpoints.length > 1) {
+            endpoints.forEach((endpoint) => {
+                sendedData[endpoint.name] = data[endpoint.name]
+            })
+        } else if (endpoints.length !== 0) {
+            sendedData = data[endpoints[0].name]
+        }
+
+        return sendedData
+    }
 
     /**
      * Modifie un enfant React en fonction de son nom d'endpoint.
@@ -63,9 +77,9 @@ export function Component({
      * Si l'enfant n'a pas de `endpointName`, il est renvoyé tel quel sans modification.
      */
     function modifiedChild(child) {
-        if (child.props.endpointName) {
+        if (child.props.endpoints) {
             return React.cloneElement(child, {
-                data: child.props.endpointName === '*' ? data : data[child.props.endpointName],
+                data: sendData(child.props.endpoints),
             })
         } else {
             return child

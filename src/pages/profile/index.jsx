@@ -16,6 +16,8 @@ import PerformanceChart from '../../components/performanceChart'
 import ScoreChart from '../../components/scoreChart'
 import Loader from '../../components/loader'
 
+import { endpoints } from '../../api/apiConstants'
+
 function Page() {
     const { windowIsResizing } = useWindowResizing()
     const { userId } = useContext(AppContext)
@@ -23,22 +25,27 @@ function Page() {
     return (
         <Container>
             <Loader
-                endpointNames={['user', 'activity', 'averageSessions', 'performance']}
+                endpoints={[
+                    endpoints.user,
+                    endpoints.activity,
+                    endpoints.averageSessions,
+                    endpoints.performance,
+                ]}
                 endpointsArgs={{ userId }}
             >
-                <ProfileHeader endpointName="user" />
+                <ProfileHeader endpoints={[endpoints.user]} />
                 {!windowIsResizing && (
                     <ChartsWrapper>
                         <>
                             <ChartsWrapperLeft>
-                                <ActivityChart endpointName="activity" />
+                                <ActivityChart endpoints={[endpoints.activity]} />
                                 <ChartsWrapperBottom>
-                                    <AverageSessionsChart endpointName="averageSessions" />
-                                    <PerformanceChart endpointName="performance" />
-                                    <ScoreChart endpointName="user" />
+                                    <AverageSessionsChart endpoints={[endpoints.averageSessions]} />
+                                    <PerformanceChart endpoints={[endpoints.performance]} />
+                                    <ScoreChart endpoints={[endpoints.user]} />
                                 </ChartsWrapperBottom>
                             </ChartsWrapperLeft>
-                            <NutrientsChart endpointName="user" />
+                            <NutrientsChart endpoints={[endpoints.user]} />
                         </>
                     </ChartsWrapper>
                 )}
