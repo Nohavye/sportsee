@@ -5,6 +5,28 @@ import { useCallback, useEffect, useState } from 'react'
 import apiSettings from '../api'
 import Entity from '../api/Entities'
 
+/**
+ * Hook personnalisé pour détecter les redimensionnements de la fenêtre du navigateur.
+ *
+ * Ce hook retourne un objet contenant un indicateur indiquant si la fenêtre est en cours de redimensionnement.
+ * L'indicateur est réinitialisé après un délai de 200 ms suivant la fin du redimensionnement.
+ *
+ * @function
+ * @returns {Object} Un objet contenant les propriétés suivantes :
+ * - `windowIsResizing` (boolean) : Indique si la fenêtre est en cours de redimensionnement.
+ *
+ * @example
+ * // Utilisation du hook dans un composant React
+ * const { windowIsResizing } = useWindowResizing();
+ *
+ * useEffect(() => {
+ *   if (windowIsResizing) {
+ *     // Le redimensionnement de la fenêtre est en cours...
+ *   } else {
+ *     // Le redimensionnement de la fenêtre s'est terminé.
+ *   }
+ * }, [windowIsResizing]);
+ */
 export function useWindowResizing() {
     const [windowIsResizing, setWindowIsResizing] = useState(false)
 
@@ -30,6 +52,17 @@ export function useWindowResizing() {
     return { windowIsResizing }
 }
 
+/**
+ * Hook personnalisé pour effectuer des requêtes HTTP en utilisant la configuration de l'API.
+ * @function
+ * @param {Array<string>} endpointNames - Les noms des endpoints à appeler.
+ * @param {Object} endpointsArgs - Les arguments à passer aux endpoints (paramètres dynamiques).
+ * @returns {Object} Un objet contenant des informations sur l'état de la requête.
+ *
+ * @example
+ * // Exemple d'utilisation du hook useFetch pour charger les données de l'utilisateur.
+ * const { reload, isLoading, data, error } = useFetch(['user'], { userId: 123 });
+ */
 export function useFetch(endpointNames, endpointsArgs = {}) {
     const [lastEndpointNames, setLastEndpointNames] = useState()
     const [lastEndpointsArgs, setLastEndpointsArgs] = useState()
@@ -114,6 +147,9 @@ export function useFetch(endpointNames, endpointsArgs = {}) {
         }
     }, [endpointNames, endpointsArgs, lastEndpointNames, lastEndpointsArgs, isReload])
 
+    /**
+     * Recharge les données en appelant à nouveau les endpoints avec les paramètres actuels.
+     */
     function reload() {
         setIsReload(true)
     }

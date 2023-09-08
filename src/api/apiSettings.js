@@ -32,7 +32,7 @@ export class ApiSettings {
      * Crée une instance de ApiSettings.
      * @constructor
      * @param {string} url - L'URL de base de l'API.
-     * @param {Array<EndpointSetting>} endpointSettings - Les paramètres de configuration d'endpoints pour les endpoints de l'API.
+     * @param {Array<EndpointSetting>} endpointSettings - Les paramètres de configuration pour les endpoints de l'API.
      */
     constructor(url, endpointSettings) {
         this._endpoints = {}
