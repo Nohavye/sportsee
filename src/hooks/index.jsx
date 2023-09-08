@@ -2,7 +2,10 @@
 import { useCallback, useEffect, useState } from 'react'
 
 // Api
-import { apiSettings } from '../api/apiConstants'
+import { apiHandler } from '../api/apiConstants'
+
+// Utils
+import { deepEqual } from '../utils'
 
 /**
  * Hook personnalisé pour détecter les redimensionnements de la fenêtre du navigateur.
@@ -52,17 +55,26 @@ export function useWindowResizing() {
 }
 
 /**
- * Hook personnalisé pour effectuer des requêtes HTTP en utilisant la configuration de l'API.
+ * Paramètres de endpoint.
+ * @typedef {Object} EndpointSettings
+ * @property {string} name - Le nom du endpoint.
+ * @property {string} route - Le chemin du endpoint.
+ * @property {string} field - Le champ de données du endpoint.
+ * @property {function} output - La fonction à appliquer sur les données sortantes.
+ */
+
+/**
+ * Hook personnalisé pour effectuer des requêtes HTTP en utilisant le gestionnaire d'API.
  * @function
- * @param {Array<string>} endpointNames - Les noms des endpoints à appeler.
+ * @param {Array<EndpointSettings>} endpoints - Tableau des paramètres de endpoints à appeler.
  * @param {Object} endpointsArgs - Les arguments à passer aux endpoints (paramètres dynamiques).
  * @returns {Object} Un objet contenant des informations sur l'état de la requête.
  *
  * @example
  * // Exemple d'utilisation du hook useFetch pour charger les données de l'utilisateur.
- * const { reload, isLoading, data, error } = useFetch(['user'], { userId: 123 });
+ * const { reload, isLoading, data, error } = useApi([endpoints.user, endpoints.activity], { userId: 18 });
  */
-export function useFetch(endpoints, endpointsArgs = {}) {
+export function useApi(endpoints, endpointsArgs = {}) {
     const [lastEndpointNames, setLastEndpointNames] = useState()
     const [lastEndpointsArgs, setLastEndpointsArgs] = useState()
 
@@ -73,43 +85,26 @@ export function useFetch(endpoints, endpointsArgs = {}) {
 
     useEffect(() => {
         if (!endpoints) return
-        const dataList = {}
-
-        async function fetchEndpoint(endpoint, endpointsArgs) {
-            const fetchedEndpoint = apiSettings.getEndpoint(endpoint, endpointsArgs)
-
-            try {
-                const response = await fetch(fetchedEndpoint.value)
-                if (response.ok) {
-                    let fetchedData = await response.json()
-                    if (fetchedEndpoint.dataField) {
-                        fetchedData = fetchedData[fetchedEndpoint.dataField]
-                    }
-                    if (fetchedEndpoint.output) {
-                        fetchedData = fetchedEndpoint.output(fetchedData)
-                    }
-                    dataList[fetchedEndpoint.name] = fetchedData
-                } else {
-                    throw new Error(
-                        `${response.status} (${response.statusText}) on the request ${response.url}`
-                    )
-                }
-            } catch (error) {
-                throw error
-            }
-        }
 
         function loadEndpoints() {
             setLoading(true)
+            setLastEndpointNames(endpoints)
+            setLastEndpointsArgs(endpointsArgs)
 
             const promises = []
             endpoints.forEach((endpoint) => {
-                promises.push(fetchEndpoint(endpoint, endpointsArgs))
+                promises.push(apiHandler.fetchEndpoint(endpoint, endpointsArgs))
             })
 
             Promise.all(promises)
-                .then(() => {
-                    setData(dataList)
+                .then((dataArray) => {
+                    const dataObject = {}
+                    dataArray.forEach((data) => {
+                        for (const field in data) {
+                            dataObject[field] = data[field]
+                        }
+                    })
+                    setData(dataObject)
                 })
                 .catch((error) => {
                     setError(true)
@@ -120,54 +115,18 @@ export function useFetch(endpoints, endpointsArgs = {}) {
                 })
         }
 
-        function refreshData() {
-            setLastEndpointNames(endpoints)
-            setLastEndpointsArgs(endpointsArgs)
-            loadEndpoints()
-        }
-
-        function deepEqual(firstObject, secondObject) {
-            function isObject(object) {
-                return object != null && typeof object === 'object'
-            }
-
-            const firstKeys = Object.keys(firstObject)
-            const secondKeys = Object.keys(secondObject)
-
-            if (firstKeys.length !== secondKeys.length) {
-                return false
-            }
-
-            for (const key of firstKeys) {
-                const firstValue = firstObject[key]
-                const secondValue = secondObject[key]
-                const areObjects = isObject(firstValue) && isObject(secondValue)
-                if (
-                    (areObjects && !deepEqual(firstValue, secondValue)) ||
-                    (!areObjects && firstValue !== secondValue)
-                ) {
-                    return false
-                }
-            }
-
-            return true
-        }
-
         function paramsHaveBeenChanged() {
-            if (!deepEqual(lastEndpointNames, endpoints)) {
-                return true
-            }
-            if (!deepEqual(lastEndpointsArgs, endpointsArgs)) {
-                return true
-            }
-            return false
+            return (
+                !deepEqual(lastEndpointNames, endpoints) ||
+                !deepEqual(lastEndpointsArgs, endpointsArgs)
+            )
         }
 
         if (!lastEndpointNames || isReload) {
-            refreshData()
+            loadEndpoints()
             if (isReload) setIsReload(false)
         } else {
-            if (paramsHaveBeenChanged()) refreshData()
+            if (paramsHaveBeenChanged()) loadEndpoints()
         }
     }, [endpoints, endpointsArgs, lastEndpointNames, lastEndpointsArgs, isReload])
 

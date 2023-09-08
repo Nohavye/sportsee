@@ -1,5 +1,5 @@
 import { Container, Spinner } from './styled'
-import { useFetch } from '../../hooks'
+import { useApi } from '../../hooks'
 import React from 'react'
 
 /**
@@ -50,7 +50,7 @@ export function Component({
     endpointsArgs,
     errorMessage = 'Oups… Il y a eu un problème pendant le traitement des requêtes.',
 }) {
-    const { isLoading, data, error } = useFetch(endpoints, endpointsArgs)
+    const { isLoading, data, error } = useApi(endpoints, endpointsArgs)
 
     function sendData(endpoints) {
         let sendedData = {}
