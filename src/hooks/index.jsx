@@ -126,11 +126,38 @@ export function useFetch(endpoints, endpointsArgs = {}) {
             loadEndpoints()
         }
 
+        function deepEqual(firstObject, secondObject) {
+            function isObject(object) {
+                return object != null && typeof object === 'object'
+            }
+
+            const firstKeys = Object.keys(firstObject)
+            const secondKeys = Object.keys(secondObject)
+
+            if (firstKeys.length !== secondKeys.length) {
+                return false
+            }
+
+            for (const key of firstKeys) {
+                const firstValue = firstObject[key]
+                const secondValue = secondObject[key]
+                const areObjects = isObject(firstValue) && isObject(secondValue)
+                if (
+                    (areObjects && !deepEqual(firstValue, secondValue)) ||
+                    (!areObjects && firstValue !== secondValue)
+                ) {
+                    return false
+                }
+            }
+
+            return true
+        }
+
         function paramsHaveBeenChanged() {
-            if (JSON.stringify(lastEndpointNames) !== JSON.stringify(endpoints)) {
+            if (!deepEqual(lastEndpointNames, endpoints)) {
                 return true
             }
-            if (JSON.stringify(lastEndpointsArgs) !== JSON.stringify(endpointsArgs)) {
+            if (!deepEqual(lastEndpointsArgs, endpointsArgs)) {
                 return true
             }
             return false
