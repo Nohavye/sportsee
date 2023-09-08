@@ -1,26 +1,26 @@
 import { setEndpoint, ApiSettings } from './apiSettings'
-import { EntityFormats } from './Entities/EntityFactory'
+import Entity from './Entities'
 
 export const endpoints = {
     user: setEndpoint({
         route: '/user/:userId',
         dataField: 'data',
-        output: EntityFormats.user,
+        output: Entity.user,
     }),
     activity: setEndpoint({
         route: '/user/:userId/activity',
         dataField: 'data',
-        output: EntityFormats.activity,
+        output: Entity.activity,
     }),
     averageSessions: setEndpoint({
         route: '/user/:userId/average-sessions',
         dataField: 'data',
-        output: EntityFormats.averageSessions,
+        output: Entity.averageSessions,
     }),
     performance: setEndpoint({
         route: '/user/:userId/performance',
         dataField: 'data',
-        output: EntityFormats.performance,
+        output: Entity.performance,
     }),
 }
 

@@ -1,6 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import { EntityFormats } from './Entities/EntityFactory'
-
 export const setEndpoint = ({ name, route, dataField, output }) => {
     return { route, dataField, output }
 }

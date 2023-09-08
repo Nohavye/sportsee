@@ -3,7 +3,6 @@ import { useCallback, useEffect, useState } from 'react'
 
 // Api
 import { apiSettings } from '../api/apiConstants'
-import Entity from '../api/Entities'
 
 /**
  * Hook personnalisé pour détecter les redimensionnements de la fenêtre du navigateur.
@@ -77,20 +76,19 @@ export function useFetch(endpoints, endpointsArgs = {}) {
         const dataList = {}
 
         async function fetchEndpoint(endpoint, endpointsArgs) {
-            // const endpoint = apiSettings.getEndpoint(name, endpointsArgs)
             const fetchedEndpoint = apiSettings.getEndpoint(endpoint, endpointsArgs)
 
             try {
                 const response = await fetch(fetchedEndpoint.value)
                 if (response.ok) {
-                    const jsonData = await response.json()
-                    const dataInField = fetchedEndpoint.dataField
-                        ? jsonData[fetchedEndpoint.dataField]
-                        : jsonData
-                    const formatedData = fetchedEndpoint.output
-                        ? Entity.create(dataInField, fetchedEndpoint.output)
-                        : dataInField
-                    dataList[fetchedEndpoint.name] = formatedData
+                    let fetchedData = await response.json()
+                    if (fetchedEndpoint.dataField) {
+                        fetchedData = fetchedData[fetchedEndpoint.dataField]
+                    }
+                    if (fetchedEndpoint.output) {
+                        fetchedData = fetchedEndpoint.output(fetchedData)
+                    }
+                    dataList[fetchedEndpoint.name] = fetchedData
                 } else {
                     throw new Error(
                         `${response.status} (${response.statusText}) on the request ${response.url}`
@@ -105,14 +103,6 @@ export function useFetch(endpoints, endpointsArgs = {}) {
             setLoading(true)
 
             const promises = []
-            // endpointNames.forEach((name) => {
-            //     if (apiSettings.getEndpointsNames().includes(name)) {
-            //         promises.push(fetchEndpoint(name, endpointsArgs))
-            //     } else {
-            //         setError(true)
-            //     }
-            // })
-
             endpoints.forEach((endpoint) => {
                 promises.push(fetchEndpoint(endpoint, endpointsArgs))
             })
