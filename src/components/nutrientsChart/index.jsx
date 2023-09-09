@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 import {
     Container,
     ItemWrapper,
@@ -13,6 +15,12 @@ import iconCarbohydrates from '../../assets/icon_carbohydrates.svg'
 import iconLipids from '../../assets/icon_lipids.svg'
 import iconProteins from '../../assets/icon_proteins.svg'
 
+/**
+ * Composant affichant des informations nutritionnelles.
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Object} props.data - Les données nutritionnelles à afficher.
+ * @returns {JSX.Element} Composant affichant des informations nutritionnelles.
+ */
 function Component({ data }) {
     return (
         <Container>
@@ -21,9 +29,7 @@ function Component({ data }) {
                     <NutrientIcon src={iconCalories} alt="icon" />
                 </IconWrapper>
                 <TextWrapper>
-                    <NutrientValue>
-                        {data.keyData.calorieCount}kCal
-                    </NutrientValue>
+                    <NutrientValue>{data.keyData.calorieCount}kCal</NutrientValue>
                     <NutrientLabel>Calories</NutrientLabel>
                 </TextWrapper>
             </ItemWrapper>
@@ -43,9 +49,7 @@ function Component({ data }) {
                     <NutrientIcon src={iconCarbohydrates} alt="icon" />
                 </IconWrapper>
                 <TextWrapper>
-                    <NutrientValue>
-                        {data.keyData.carbohydrateCount}g
-                    </NutrientValue>
+                    <NutrientValue>{data.keyData.carbohydrateCount}g</NutrientValue>
                     <NutrientLabel>Glucides</NutrientLabel>
                 </TextWrapper>
             </ItemWrapper>
@@ -61,6 +65,10 @@ function Component({ data }) {
             </ItemWrapper>
         </Container>
     )
+}
+
+Component.propTypes = {
+    data: PropTypes.object,
 }
 
 export default Component

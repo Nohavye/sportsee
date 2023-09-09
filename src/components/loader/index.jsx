@@ -1,48 +1,25 @@
+import PropTypes from 'prop-types'
 import { Container, Spinner } from './styled'
 import { useApi } from '../../hooks'
 import React from 'react'
 
 /**
- * Composant permettant de gérer les données provenant de plusieurs endpoints de l'API.
- * @component
+ * Paramètres de endpoint avec le nom.
+ * @typedef {Object} Endpoint
+ * @property {string} name - Le nom du endpoint.
+ * @property {string} route - Le chemin du endpoint.
+ * @property {string} field - Le champ de données du endpoint.
+ * @property {function} output - La fonction à appliquer sur les données sortantes.
+ */
+/**
+ * Composant de gestion des appels à l'API avec prise en charge du chargement,
+ * des erreurs et de la mise à jour des enfants.
  * @param {Object} props - Les propriétés du composant.
- * @param {ReactNode} props.children - Les éléments enfants à afficher.
- * @param {Array<string>} props.endpointNames - Les noms des endpoints à appeler.
- * @param {Object} props.endpointsArgs - Les arguments à passer aux endpoints (paramètres dynamiques).
- * @param {string} [props.errorMessage] - Message d'erreur à afficher en cas d'échec (optonnel).
- * @returns {ReactNode} Le contenu du composant en fonction de l'état de la requête.
- *
- * @example
- * // Exemple d'utilisation du composant pour charger les données de l'utilisateur et de l'activité.
- * function App() {
- *   const endpointNames = ['user', 'activity'] // Les noms des endpoints à appeler
- *   const endpointsArgs = { userId: 123 } // Les arguments à passer aux endpoints
- *
- *   return (
- *     <Loader endpointNames={endpointNames} endpointsArgs={endpointsArgs}>
- *       <div className="parentWrapper">
- *
- *         <ChildComponent endpointName="user">
- *           <Content />
- *         </ChildComponent>
- *
- *         <ChildComponent endpointName="activity">
- *           <Content />
- *         </ChildComponent>
- *       </div>
- *
- *       <div>
- *         <ChildComponent endpointName="*">
- *           <Content />
- *         </ChildComponent>
- *
- *         <ChildComponentWithoutAPI>
- *           <Content />
- *         </ChildComponentWithoutAPI>
- *       </div>
- *     </Loader>
- *   )
- * }
+ * @param {ReactNode} props.children - Les enfants du composant.
+ * @param {Array<Endpoint>} props.endpoints - Les endpoints à interroger.
+ * @param {Object} props.endpointsArgs - Les arguments spécifiques aux endpoints.
+ * @param {string} [props.errorMessage] - Le message d'erreur à afficher en cas d'échec de la requête.
+ * @returns {JSX.Element} Composant de gestion des appels à l'API.
  */
 export function Component({
     children,
@@ -140,6 +117,19 @@ export function Component({
         : isLoading
         ? parentWrapper(<Spinner />)
         : handleChildren(children)
+}
+
+Component.propTypes = {
+    endpoints: PropTypes.arrayOf(
+        PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            route: PropTypes.string.isRequired,
+            field: PropTypes.string.isRequired,
+            output: PropTypes.func.isRequired,
+        })
+    ).isRequired,
+    endpointsArgs: PropTypes.object,
+    errorMessage: PropTypes.string,
 }
 
 export default Component

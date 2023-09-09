@@ -3,6 +3,12 @@ import { createContext, useEffect, useState } from 'react'
 
 export const AppContext = createContext()
 
+/**
+ * Composant de fournisseur de contexte pour l'application.
+ * @param {Object} props - Les propriétés du composant.
+ * @param {ReactNode} props.children - Les enfants du composant.
+ * @returns {JSX.Element} Composant de fournisseur de contexte.
+ */
 export function AppProvider({ children }) {
     const [userId, setUserId] = useState(12)
 
@@ -20,7 +26,7 @@ export function AppProvider({ children }) {
         return () => {
             window.removeEventListener('keydown', handleKeyDown)
         }
-    }, [userId])
+    })
 
     return <AppContext.Provider value={{ userId }}>{children}</AppContext.Provider>
 }

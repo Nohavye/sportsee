@@ -1,5 +1,9 @@
 import { Container, Logo, Navigation, Link } from './styled'
 
+/**
+ * Composant header avec navigation.
+ * @returns {JSX.Element} Composant header avec navigation.
+ */
 function Component() {
     return (
         <Container>

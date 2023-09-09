@@ -1,42 +1,15 @@
+import PropTypes from 'prop-types'
 import { Container, MaskGradient, Title } from './styled'
-import {
-    LineChart,
-    Line,
-    XAxis,
-    YAxis,
-    Tooltip,
-    ResponsiveContainer,
-} from 'recharts'
+import { CustomTooltip, fontAxisStyle } from './utils'
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 
-const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-        const wrapperStyle = {
-            backgroundColor: 'white',
-            padding: '5px 10px',
-        }
-        const fontStyle = {
-            color: 'black',
-            fontFamily: 'Roboto',
-            fontWeight: '500',
-            fontSize: '10px',
-        }
-        return (
-            <div style={wrapperStyle}>
-                <span style={fontStyle}>{`${payload[0].value} min`}</span>
-            </div>
-        )
-    }
-
-    return null
-}
-
-const fontAxisStyle = {
-    fontFamily: 'Roboto',
-    fontWeight: '500',
-    fontSize: '12px',
-}
-
-function Components({ data }) {
+/**
+ * Composant de graphique en ligne pour afficher la durée moyenne des sessions.
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Object} props.data - Les données à afficher dans le graphique.
+ * @returns {JSX.Element} Composant de graphique en ligne.
+ */
+function Component({ data }) {
     return (
         <Container>
             <Title>Durée moyenne des sessions</Title>
@@ -57,14 +30,10 @@ function Components({ data }) {
                             interval="preserveStartEnd"
                             axisLine={false}
                             tickLine={false}
-                            stroke="#ffffff"
+                            stroke="white"
                             style={fontAxisStyle}
                         />
-                        <YAxis
-                            type="number"
-                            domain={['dataMin - 5', 'dataMax + 20']}
-                            hide={true}
-                        />
+                        <YAxis type="number" domain={['dataMin - 5', 'dataMax + 20']} hide={true} />
                         <Tooltip content={<CustomTooltip />} />
 
                         <Line
@@ -86,4 +55,8 @@ function Components({ data }) {
     )
 }
 
-export default Components
+Component.propTypes = {
+    data: PropTypes.object,
+}
+
+export default Component

@@ -11,7 +11,17 @@ class AverageSessionEntity {
      * @param {number} data.sessionLength - La durée moyenne de la session en minutes.
      */
     constructor(data) {
-        this._day = data.day
+        const daysMap = {
+            1: 'L',
+            2: 'M',
+            3: 'M',
+            4: 'J',
+            5: 'V',
+            6: 'S',
+            7: 'D',
+        }
+
+        this._day = daysMap[data.day]
         this._sessionLength = data.sessionLength
     }
 

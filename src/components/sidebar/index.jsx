@@ -6,9 +6,13 @@ import icon_swimming from '../../assets/icon_swimming.svg'
 import icon_cycling from '../../assets/icon_cycling.svg'
 import icon_bodybuilding from '../../assets/icon_bodybuilding.svg'
 
+/**
+ * Composant de la barre latérale affichant des liens vers des catégories d'activités sportives.
+ * @returns {JSX.Element} Composant de la barre latérale.
+ */
 function Component() {
     return (
-        <Container className="sidebar">
+        <Container>
             <Link to="">
                 <img src={icon_yoga} alt="icon" />
             </Link>

@@ -1,14 +1,16 @@
+import PropTypes from 'prop-types'
 import { Container } from './styled'
+import { fontAxisStyle } from './utils'
 import { colors } from '../../styles'
 
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts'
 
-const fontAxisStyle = {
-    fontFamily: 'Roboto',
-    fontWeight: '500',
-    fontSize: '12px',
-}
-
+/**
+ * Composant affichant un graphique radar.
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Object} props.data - Les données pour le graphique radar.
+ * @returns {JSX.Element} Composant affichant un graphique radar.
+ */
 function Component({ data }) {
     return (
         <Container>
@@ -33,6 +35,10 @@ function Component({ data }) {
             </ResponsiveContainer>
         </Container>
     )
+}
+
+Component.propTypes = {
+    data: PropTypes.object,
 }
 
 export default Component

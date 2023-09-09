@@ -1,4 +1,6 @@
+import PropTypes from 'prop-types'
 import { Container, Title } from './styled'
+import { CustomTooltip, legendText, fontAxisStyle } from './utils'
 import { colors } from '../../styles'
 
 import {
@@ -12,58 +14,12 @@ import {
     ResponsiveContainer,
 } from 'recharts'
 
-const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-        const wrapperStyle = {
-            backgroundColor: '#e60000',
-            padding: '10px',
-
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '20px',
-        }
-        const fontStyle = {
-            color: 'white',
-            fontFamily: 'Roboto',
-            fontWeight: '500',
-            fontSize: '10px',
-        }
-        return (
-            <div style={wrapperStyle}>
-                <span style={fontStyle}>{`${payload[0].value}Kg`}</span>
-                <span style={fontStyle}>{`${payload[1].value}Kcal`}</span>
-            </div>
-        )
-    }
-
-    return null
-}
-
-const LegendText = (value) => {
-    const fontStyle = {
-        color: '#74798c',
-        fontFamily: 'Roboto',
-        fontWeight: '500',
-        fontSize: '14px',
-    }
-
-    switch (value) {
-        case 'kilogram':
-            return <span style={fontStyle}>{'Poids (kg)'}</span>
-        case 'calories':
-            return <span style={fontStyle}>{'Calories brûlées (kCal)'}</span>
-        default:
-            return
-    }
-}
-
-const fontAxisStyle = {
-    fontFamily: 'Roboto',
-    fontWeight: '500',
-    fontSize: '14px',
-}
-
+/**
+ * Composant de graphique en barres pour afficher l'activité quotidienne.
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Object} props.data - Les données à afficher dans le graphique.
+ * @returns {JSX.Element} Composant de graphique en barres.
+ */
 function Component({ data }) {
     return (
         <Container>
@@ -75,7 +31,7 @@ function Component({ data }) {
                     <XAxis
                         dataKey="day"
                         tickLine={false}
-                        stroke="#9b9eac"
+                        stroke={colors.light_gray}
                         style={fontAxisStyle}
                     />
                     <YAxis
@@ -88,14 +44,14 @@ function Component({ data }) {
                         orientation="right"
                         axisLine={false}
                         tickLine={false}
-                        stroke="#9b9eac"
+                        stroke={colors.light_gray}
                         style={fontAxisStyle}
                     />
                     <YAxis yAxisId="calories" hide={true} />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend
                         wrapperStyle={{ paddingBottom: '30px' }}
-                        formatter={LegendText}
+                        formatter={legendText}
                         verticalAlign="top"
                         align="right"
                         iconType="circle"
@@ -119,6 +75,10 @@ function Component({ data }) {
             </ResponsiveContainer>
         </Container>
     )
+}
+
+Component.propTypes = {
+    data: PropTypes.object,
 }
 
 export default Component
