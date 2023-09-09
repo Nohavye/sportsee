@@ -8,6 +8,7 @@ import logo from '../../assets/sportsee_logo.svg'
 export const Container = styled.header`
     box-sizing: border-box;
     position: fixed;
+    z-index: 9999;
     width: 100%;
     height: 92px;
     padding: 0 40px;

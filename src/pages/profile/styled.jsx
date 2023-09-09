@@ -19,6 +19,7 @@ export const ChartsWrapperLeft = styled.div`
 `
 export const ChartsWrapperBottom = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    flex-wrap: wrap-reverse;
     gap: 20px;
 `

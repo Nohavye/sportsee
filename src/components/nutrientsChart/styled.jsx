@@ -6,6 +6,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    max-height: 512px;
 `
 export const ItemWrapper = styled.div`
     display: flex;

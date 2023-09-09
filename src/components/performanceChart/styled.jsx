@@ -5,7 +5,7 @@ export const Container = styled.div`
     background-color: ${colors.dark_gray};
     box-sizing: border-box;
     border-radius: 6px;
-    width: 99.9%;
+    width: 300px;
     height: 272px;
 
     & tspan {

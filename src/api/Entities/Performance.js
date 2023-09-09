@@ -11,8 +11,17 @@ class PerformanceDataEntity {
      * @param {string} kindValue - Le type de performance.
      */
     constructor(data, kindValue) {
+        const kindsMap = {
+            cardio: 'Cardio',
+            energy: 'Energie',
+            endurance: 'Endurance',
+            strength: 'Force',
+            speed: 'Vitesse',
+            intensity: 'Intensité',
+        }
+
         this._value = data.value
-        this._kind = kindValue
+        this._kind = kindsMap[kindValue]
     }
 
     /**
@@ -47,10 +56,12 @@ class PerformanceEntity {
      */
     constructor(data) {
         this._userId = data.userId
-        this._data = data.data.map(
-            (dataPerformance) =>
-                new PerformanceDataEntity(dataPerformance, data.kind[dataPerformance.kind])
-        )
+        this._data = data.data
+            .reverse()
+            .map(
+                (dataPerformance) =>
+                    new PerformanceDataEntity(dataPerformance, data.kind[dataPerformance.kind])
+            )
     }
 
     /**
