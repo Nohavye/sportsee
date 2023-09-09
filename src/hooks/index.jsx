@@ -8,26 +8,8 @@ import { apiHandler } from '../api/apiConstants'
 import { deepEqual } from '../utils'
 
 /**
- * Hook personnalisé pour détecter les redimensionnements de la fenêtre du navigateur.
- *
- * Ce hook retourne un objet contenant un indicateur indiquant si la fenêtre est en cours de redimensionnement.
- * L'indicateur est réinitialisé après un délai de 200 ms suivant la fin du redimensionnement.
- *
- * @function
- * @returns {Object} Un objet contenant les propriétés suivantes :
- * - `windowIsResizing` (boolean) : Indique si la fenêtre est en cours de redimensionnement.
- *
- * @example
- * // Utilisation du hook dans un composant React
- * const { windowIsResizing } = useWindowResizing();
- *
- * useEffect(() => {
- *   if (windowIsResizing) {
- *     // Le redimensionnement de la fenêtre est en cours...
- *   } else {
- *     // Le redimensionnement de la fenêtre s'est terminé.
- *   }
- * }, [windowIsResizing]);
+ * Hook personnalisé pour détecter les redimensionnements de la fenêtre.
+ * @returns {Object} Un objet contenant une valeur booléenne indiquant si la fenêtre est en cours de redimensionnement.
  */
 export function useWindowResizing() {
     const [windowIsResizing, setWindowIsResizing] = useState(false)
@@ -55,8 +37,8 @@ export function useWindowResizing() {
 }
 
 /**
- * Paramètres de endpoint.
- * @typedef {Object} EndpointSettings
+ * Paramètres de endpoint avec le nom.
+ * @typedef {Object} Endpoint
  * @property {string} name - Le nom du endpoint.
  * @property {string} route - Le chemin du endpoint.
  * @property {string} field - Le champ de données du endpoint.
@@ -64,15 +46,19 @@ export function useWindowResizing() {
  */
 
 /**
- * Hook personnalisé pour effectuer des requêtes HTTP en utilisant le gestionnaire d'API.
- * @function
- * @param {Array<EndpointSettings>} endpoints - Tableau des paramètres de endpoints à appeler.
- * @param {Object} endpointsArgs - Les arguments à passer aux endpoints (paramètres dynamiques).
- * @returns {Object} Un objet contenant des informations sur l'état de la requête.
- *
- * @example
- * // Exemple d'utilisation du hook useFetch pour charger les données de l'utilisateur.
- * const { reload, isLoading, data, error } = useApi([endpoints.user, endpoints.activity], { userId: 18 });
+ * Objet fourni par le hook useApi pour gérer les appels à l'API.
+ * @typedef {Object} UseApiObject
+ * @property {function} reload - Fonction pour forcer le rechargement des données.
+ * @property {Boolean} isLoading - Indique si le chargement est en cours.
+ * @property {Object.<string, Object>} data - Données récupérées depuis les points de terminaison.
+ * @property {Boolean} error - Indique s'il y a eu une erreur lors de la récupération des données.
+ */
+
+/**
+ * Hook personnalisé pour gérer les appels à l'API avec plusieurs endpoints.
+ * @param {Array<Endpoint>} endpoints - Les endpoints à interroger.
+ * @param {Object} [endpointsArgs={}] - Les arguments spécifiques aux endpoints.
+ * @returns {UseApiObject} Un objet pour gérer les appels à l'API.
  */
 export function useApi(endpoints, endpointsArgs = {}) {
     const [lastEndpointNames, setLastEndpointNames] = useState()
@@ -130,9 +116,6 @@ export function useApi(endpoints, endpointsArgs = {}) {
         }
     }, [endpoints, endpointsArgs, lastEndpointNames, lastEndpointsArgs, isReload])
 
-    /**
-     * Recharge les données en appelant à nouveau les endpoints avec les paramètres actuels.
-     */
     function reload() {
         setIsReload(true)
     }
