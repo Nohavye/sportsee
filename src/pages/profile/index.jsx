@@ -14,8 +14,9 @@ import NutrientsChart from '../../components/nutrientsChart'
 import AverageSessionsChart from '../../components/averageSessionsChart'
 import PerformanceChart from '../../components/performanceChart'
 import ScoreChart from '../../components/scoreChart'
-import Loader from '../../components/loader'
 
+// Api
+import DataLoadingWrapper from '../../api/components/DataLoadingWrapper'
 import { endpoints } from '../../api/apiConstants'
 
 function Page() {
@@ -24,15 +25,7 @@ function Page() {
 
     return (
         <Container>
-            <Loader
-                endpoints={[
-                    endpoints.user,
-                    endpoints.activity,
-                    endpoints.averageSessions,
-                    endpoints.performance,
-                ]}
-                endpointsArgs={{ userId }}
-            >
+            <DataLoadingWrapper endpoints={Object.values(endpoints)} endpointsArgs={{ userId }}>
                 <ProfileHeader endpoints={[endpoints.user]} />
                 {!windowIsResizing && (
                     <ChartsWrapper>
@@ -49,7 +42,7 @@ function Page() {
                         </>
                     </ChartsWrapper>
                 )}
-            </Loader>
+            </DataLoadingWrapper>
         </Container>
     )
 }

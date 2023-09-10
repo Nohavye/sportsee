@@ -1,6 +1,6 @@
 import { Container } from './styled'
 
-import Loader from '../../components/loader'
+import DataLoadingWrapper from '../../api/components/DataLoadingWrapper'
 import { endpoints } from '../../api/apiConstants'
 
 function ChildComponents({ data, children }) {
@@ -22,7 +22,7 @@ function Page() {
     return (
         <Container>
             <h1>Page d'accueil</h1>
-            <Loader
+            <DataLoadingWrapper
                 endpoints={[endpoints.user, endpoints.activity]}
                 endpointsArgs={{ userId: '12' }}
             >
@@ -33,7 +33,7 @@ function Page() {
                     </ChildComponents>
                 </div>
                 <div></div>
-            </Loader>
+            </DataLoadingWrapper>
         </Container>
     )
 }

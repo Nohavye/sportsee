@@ -1,7 +1,7 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Container, Spinner } from './styled'
 import { useApi } from '../../hooks'
-import React from 'react'
 
 /**
  * Paramètres de endpoint avec le nom.
