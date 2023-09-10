@@ -117,7 +117,7 @@ Le composant DataLoadingWrapper est utilisé pour gérer les appels à l'API en 
 
 Propriétés:
 
--   `endpoints` (Array) : Un tableau d'objets représentant les endpoints API à interroger. Chaque objet d'endpoint doit avoir un nom, un chemin, un champ de données et une fonction de sortie.
+-   `endpoints` (Array) : Un tableau d'objets représentant les endpoints d'API à interroger.
 
 -   `endpointsArgs` (Objet) : Des arguments spécifiques aux endpoints, généralement utilisés pour personnaliser les requêtes API en fonction de paramètres spécifiques (Segments de chemin variables préfixés avec ':' (ex: si `endpointsArgs = { id: 18 }`, la route '/user/:id' deviendra '/user/18')).
 
@@ -168,6 +168,6 @@ function Component() {
 
 -   Un composant enfant qui dépend des données peut réclamer plusieurs endpoints.
 
--   Il est possible de désigner un conteneur parent pour le message d'erreur et le loading spinner en lui attribuant le classe CSS `parentWrapper`, si cette classe CSS n'est pas spécifiée, un conteneur par défaut est utilisé.
+-   Il est possible de désigner un conteneur parent pour le message d'erreur et le loading spinner en lui attribuant la classe CSS `parentWrapper`, si cette classe CSS n'est pas spécifiée, un conteneur par défaut est utilisé.
 
 -   Assurez-vous de fournir les configurations correctes des endpoints en utilisant les outils précedemment exposés dans cette documentation.
