@@ -3,6 +3,7 @@ import { Container, Title } from './styled'
 import { CustomTooltip, legendText, fontAxisStyle } from './utils'
 import { colors } from '../../styles'
 
+// Recharts
 import {
     BarChart,
     Bar,
@@ -14,11 +15,10 @@ import {
     ResponsiveContainer,
 } from 'recharts'
 
-/**
- * Composant de graphique en barres pour afficher l'activité quotidienne.
+/** Composant de graphique pour afficher l'activité quotidienne.
  * @param {Object} props - Les propriétés du composant.
  * @param {Object} props.data - Les données à afficher dans le graphique.
- * @returns {JSX.Element} Composant de graphique en barres.
+ * @returns {JSX.Element} Composant de graphique.
  */
 function Component({ data }) {
     return (

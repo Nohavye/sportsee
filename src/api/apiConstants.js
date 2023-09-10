@@ -8,10 +8,17 @@ import Entity from './Entities'
  * @property {string} field - Le champ de données du endpoint.
  * @property {function} output - La fonction à appliquer sur les données sortantes.
  */
-
 /**
- * Paramètres des endpoints de l'API.
- * @type {Object.<string, EndpointSettings>}
+ * Paramètres de endpoint avec le nom.
+ * @typedef {Object} Endpoint
+ * @property {string} name - Le nom du endpoint.
+ * @property {string} route - Le chemin du endpoint.
+ * @property {string} field - Le champ de données du endpoint.
+ * @property {function} output - La fonction à appliquer sur les données sortantes.
+ */
+
+/** Paramètres des endpoints de l'API.
+ * @type {(Object.<string, EndpointSettings>|Object.<string, Endpoint>)}
  */
 export const endpoints = {
     user: setEndpoint({
@@ -36,7 +43,5 @@ export const endpoints = {
     }),
 }
 
-/**
- * Gestionnaire de l'API.
- */
+/** Gestionnaire de l'API. */
 export const apiHandler = new ApiHandler('http://localhost:3000', endpoints)

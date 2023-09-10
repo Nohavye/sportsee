@@ -3,13 +3,13 @@ import { Container } from './styled'
 import { fontAxisStyle } from './utils'
 import { colors } from '../../styles'
 
+// Recharts
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts'
 
-/**
- * Composant affichant un graphique radar.
+/** Composant affichant les performances.
  * @param {Object} props - Les propriétés du composant.
- * @param {Object} props.data - Les données pour le graphique radar.
- * @returns {JSX.Element} Composant affichant un graphique radar.
+ * @param {Object} props.data - Les données pour le graphique.
+ * @returns {JSX.Element} Composant affichant un graphique.
  */
 function Component({ data }) {
     return (

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 
+// Recharts
 import {
     Container,
     ItemWrapper,
@@ -10,16 +11,16 @@ import {
     NutrientLabel,
 } from './styled'
 
+// Assets
 import iconCalories from '../../assets/icon_calories.svg'
 import iconCarbohydrates from '../../assets/icon_carbohydrates.svg'
 import iconLipids from '../../assets/icon_lipids.svg'
 import iconProteins from '../../assets/icon_proteins.svg'
 
-/**
- * Composant affichant des informations nutritionnelles.
+/** Composant affichant les informations nutritionnelles.
  * @param {Object} props - Les propriétés du composant.
  * @param {Object} props.data - Les données nutritionnelles à afficher.
- * @returns {JSX.Element} Composant affichant des informations nutritionnelles.
+ * @returns {JSX.Element} Composant affichant les informations nutritionnelles.
  */
 function Component({ data }) {
     return (

@@ -1,6 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
+// Components
 import { Container, Spinner } from './styled'
+
+// Hooks
 import { useApi } from '../../hooks'
 
 /**
@@ -11,9 +15,8 @@ import { useApi } from '../../hooks'
  * @property {string} field - Le champ de données du endpoint.
  * @property {function} output - La fonction à appliquer sur les données sortantes.
  */
-/**
- * Composant de gestion des appels à l'API avec prise en charge du chargement,
- * des erreurs et de la mise à jour des enfants.
+/** Composant de gestion des appels à l'API
+ * avec prise en charge du chargement, des erreurs et de la mise à jour des enfants.
  * @param {Object} props - Les propriétés du composant.
  * @param {ReactNode} props.children - Les enfants du composant.
  * @param {Array<Endpoint>} props.endpoints - Les endpoints à interroger.
@@ -29,7 +32,7 @@ export function Component({
 }) {
     const { isLoading, data, error } = useApi(endpoints, endpointsArgs)
 
-    function sendData(endpoints) {
+    function wrapData(endpoints) {
         let sendedData = {}
 
         if (endpoints.length > 1) {
@@ -56,7 +59,7 @@ export function Component({
     function modifiedChild(child) {
         if (child.props.endpoints) {
             return React.cloneElement(child, {
-                data: sendData(child.props.endpoints),
+                data: wrapData(child.props.endpoints),
             })
         } else {
             return child

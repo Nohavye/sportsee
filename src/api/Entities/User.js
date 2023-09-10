@@ -1,5 +1,4 @@
-/**
- * Classe représentant les informations de l'utilisateur.
+/** Classe représentant les informations de l'utilisateur.
  * @class
  */
 class UserInfosEntity {
@@ -42,8 +41,7 @@ class UserInfosEntity {
     }
 }
 
-/**
- * Classe représentant les données clés de l'utilisateur.
+/** Classe représentant les données clés de l'utilisateur.
  * @class
  */
 class UserKeyDataEntity {
@@ -96,8 +94,7 @@ class UserKeyDataEntity {
     }
 }
 
-/**
- * Classe représentant l'entité utilisateur.
+/** Classe représentant l'entité utilisateur.
  * @class
  */
 class UserEntity {
@@ -114,11 +111,12 @@ class UserEntity {
     constructor(data) {
         this._id = data.id
         this._userInfos = new UserInfosEntity(data.userInfos)
-        if (data.score) {
-            this._score = [{ value: 100 - data.score * 100 }, { value: data.score * 100 }]
-        } else if (data.todayScore) {
-            this._score = [{ value: 100 - data.todayScore * 100 }, { value: data.todayScore * 100 }]
-        }
+
+        this._score = ((scoreValue = data.score || data.todayScore) => [
+            { value: 100 - scoreValue * 100 },
+            { value: scoreValue * 100 },
+        ])()
+
         this._keyData = new UserKeyDataEntity(data.keyData)
     }
 

@@ -7,6 +7,10 @@ import { AppContext } from '../../context'
 import { useContext } from 'react'
 import { useWindowResizing } from '../../hooks'
 
+// Api
+import { endpoints } from '../../api/apiConstants'
+import DataLoadingWrapper from '../../api/components/DataLoadingWrapper'
+
 // Components
 import ProfileHeader from '../../components/profileHeader'
 import ActivityChart from '../../components/activityChart'
@@ -14,10 +18,6 @@ import NutrientsChart from '../../components/nutrientsChart'
 import AverageSessionsChart from '../../components/averageSessionsChart'
 import PerformanceChart from '../../components/performanceChart'
 import ScoreChart from '../../components/scoreChart'
-
-// Api
-import DataLoadingWrapper from '../../api/components/DataLoadingWrapper'
-import { endpoints } from '../../api/apiConstants'
 
 function Page() {
     const { windowIsResizing } = useWindowResizing()

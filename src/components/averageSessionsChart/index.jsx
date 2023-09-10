@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types'
 import { Container, MaskGradient, Title } from './styled'
 import { CustomTooltip, fontAxisStyle } from './utils'
+
+// Recharts
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 
-/**
- * Composant de graphique en ligne pour afficher la durée moyenne des sessions.
+/** Composant de graphique pour afficher la durée moyenne des sessions.
  * @param {Object} props - Les propriétés du composant.
  * @param {Object} props.data - Les données à afficher dans le graphique.
- * @returns {JSX.Element} Composant de graphique en ligne.
+ * @returns {JSX.Element} Composant de graphique.
  */
 function Component({ data }) {
     return (

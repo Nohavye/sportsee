@@ -1,5 +1,4 @@
-/**
- * Classe représentant une donnée de performance.
+/** Classe représentant une donnée de performance.
  * @class
  */
 class PerformanceDataEntity {
@@ -41,8 +40,7 @@ class PerformanceDataEntity {
     }
 }
 
-/**
- * Classe représentant une entité de performance.
+/** Classe représentant une entité de performance.
  * @class
  */
 class PerformanceEntity {

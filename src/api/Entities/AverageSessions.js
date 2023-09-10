@@ -1,5 +1,4 @@
-/**
- * Classe représentant une moyenne de session.
+/** Classe représentant une moyenne de session.
  * @class
  */
 class AverageSessionEntity {
@@ -42,8 +41,7 @@ class AverageSessionEntity {
     }
 }
 
-/**
- * Classe représentant une entité de moyennes de sessions.
+/** Classe représentant une entité de moyennes de sessions.
  * @class
  */
 class AverageSessionsEntity {

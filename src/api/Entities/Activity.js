@@ -1,5 +1,4 @@
-/**
- * Classe représentant une session d'activité.
+/** Classe représentant une session d'activité.
  * @class
  */
 class ActivitySessionEntity {
@@ -34,16 +33,15 @@ class ActivitySessionEntity {
     }
 
     /**
-     * Retourne le nombre de calories brûlées.
-     * @returns {number} Le nombre de calories brûlées.
+     * Retourne le nombre de calories.
+     * @returns {number} Le nombre de calories.
      */
     get calories() {
         return this._calories
     }
 }
 
-/**
- * Classe représentant une entité d'activité.
+/** Classe représentant une entité d'activité.
  * @class
  */
 class ActivityEntity {

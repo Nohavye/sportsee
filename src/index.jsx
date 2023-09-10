@@ -8,6 +8,7 @@ import './index.css'
 
 // Components
 import Header from './components/header'
+import Sidebar from './components/sidebar'
 import PagesWrapper from './components/pagesWrapper'
 
 // Pages
@@ -16,7 +17,6 @@ import HomePage from './pages/home'
 import ProfilePage from './pages/profile'
 import SettingsPage from './pages/settings'
 import CommunityPage from './pages/community'
-import Sidebar from './components/sidebar'
 
 // Providers
 import { AppProvider } from './context'

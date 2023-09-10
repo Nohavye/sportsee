@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types'
 import { Container, Title, Label } from './styled'
 import { colors } from '../../styles'
+
+// Recharts
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 
-/**
- * Composant affichant un graphique pour le score.
+/** Composant affichant un graphique pour le score.
  * @param {Object} props - Les propriétés du composant.
  * @param {Object} props.data - Les données du graphique.
- * @returns {JSX.Element} Composant affichant un graphique pour le score.
+ * @returns {JSX.Element} Composant affichant un graphique.
  */
 function Component({ data }) {
     return (

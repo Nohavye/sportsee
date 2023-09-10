@@ -13,16 +13,8 @@
  * @property {string} field - Le champ de données du endpoint.
  * @property {function} output - La fonction à appliquer sur les données sortantes.
  */
-/**
- * Paramètres de endpoint avec le nom.
- * @typedef {Object} ProprocessedEndpoint
- * @property {string} name - Le nom du endpoint.
- * @property {string} value - L'URL complète du endpoint avec les arguments.
- * @property {string} field - Le champ de données du endpoint.
- * @property {function} output - La fonction à appliquer sur les données sortantes.
- */
-/**
- * Fonction pour paramétrer un endpoint.
+
+/** Fonction pour paramétrer un endpoint.
  * @function
  * @param {Object} params - Paramètres du endpoint.
  * @param {string} params.route - Le chemin du endpoint.
@@ -34,8 +26,7 @@ export const setEndpoint = ({ route, field, output }) => {
     return { route, field, output }
 }
 
-/**
- * Classe pour gérer les paramètres de l'API.
+/** Classe de gestion d'API.
  * @class
  */
 export class ApiHandler {
@@ -48,11 +39,20 @@ export class ApiHandler {
     constructor(url, endpoints) {
         this._url = url
 
+        // Ajoute une propriété 'name' à chaque endpoints paramétrés.
         for (const prop in endpoints) {
             endpoints[prop] = { ...endpoints[prop], name: prop }
         }
     }
 
+    /**
+     * Paramètres de endpoint traité avant fetch.
+     * @typedef {Object} ProprocessedEndpoint
+     * @property {string} name - Le nom du endpoint.
+     * @property {string} value - L'URL complète du endpoint avec les arguments.
+     * @property {string} field - Le champ de données du endpoint.
+     * @property {function} output - La fonction à appliquer sur les données sortantes.
+     */
     /**
      * Fonction interne pour le prétraitement d'un endpoint avant fetch.
      * @private
@@ -67,7 +67,7 @@ export class ApiHandler {
          * Remplace les paramètres de chemin dynamiques dans la route par leurs valeurs correspondantes.
          * @private
          * @param {string} route - La route avec des paramètres dynamiques (p. ex. ":id").
-         * @param {Object} endpointArgs - Arguments spécifiques au point de terminaison.
+         * @param {Object} endpointArgs - Arguments spécifiques au endpoint.
          * @returns {string} La route avec les paramètres remplacés.
          */
         const replaceArgs = (route, endpointArgs) => {
@@ -88,7 +88,7 @@ export class ApiHandler {
      * Effectue une requête pour récupérer des données à partir d'un endpoint.
      * @async
      * @param {Endpoint} endpoint - Paramètres de endpoint avec le nom.
-     * @param {Object} endpointArgs - Arguments spécifiques au point de terminaison.
+     * @param {Object} endpointArgs - Arguments spécifiques au endpoint.
      * @throws {Error} Une erreur si la requête échoue ou si la réponse n'est pas OK.
      * @returns {Promise<Object>} Une promesse résolue avec les données récupérées.
      */

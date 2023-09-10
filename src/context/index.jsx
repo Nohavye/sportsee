@@ -1,13 +1,12 @@
-// Context
+// Context, Hooks
 import { createContext, useEffect, useState } from 'react'
 
 export const AppContext = createContext()
 
-/**
- * Composant de fournisseur de contexte pour l'application.
+/** Fournisseur de contexte pour l'application.
  * @param {Object} props - Les propriétés du composant.
  * @param {ReactNode} props.children - Les enfants du composant.
- * @returns {JSX.Element} Composant de fournisseur de contexte.
+ * @returns {JSX.Element} Fournisseur de contexte.
  */
 export function AppProvider({ children }) {
     const [userId, setUserId] = useState(12)

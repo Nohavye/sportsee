@@ -4,8 +4,7 @@ import AverageSessionsEntity from './AverageSessions'
 import PerformanceEntity from './Performance'
 import UserEntity from './User'
 
-/**
- * Module contenant des fonctions pour créer différentes entités.
+/** Module contenant des fonctions pour créer différentes entités.
  * @namespace
  */
 const Entity = {

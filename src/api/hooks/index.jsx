@@ -1,5 +1,10 @@
+// Hooks
 import { useState, useEffect } from 'react'
+
+// Api
 import { apiHandler } from '../apiConstants'
+
+// Utils
 import { deepEqual } from '../utils'
 
 /**
@@ -10,20 +15,17 @@ import { deepEqual } from '../utils'
  * @property {string} field - Le champ de données du endpoint.
  * @property {function} output - La fonction à appliquer sur les données sortantes.
  */
-
 /**
  * Objet fourni par le hook useApi pour gérer les appels à l'API.
  * @typedef {Object} UseApiObject
  * @property {function} reload - Fonction pour forcer le rechargement des données.
  * @property {Boolean} isLoading - Indique si le chargement est en cours.
- * @property {Object.<string, Object>} data - Données récupérées depuis les points de terminaison.
+ * @property {Object.<string, Object>} data - Données récupérées depuis les endpoints.
  * @property {Boolean} error - Indique s'il y a eu une erreur lors de la récupération des données.
  */
-
-/**
- * Hook personnalisé pour gérer les appels à l'API avec plusieurs endpoints.
+/** Hook personnalisé pour gérer les appels à l'API avec plusieurs endpoints.
  * @param {Array<Endpoint>} endpoints - Les endpoints à interroger.
- * @param {Object} [endpointsArgs={}] - Les arguments spécifiques aux endpoints.
+ * @param {Object} [endpointsArgs] - Les arguments spécifiques aux endpoints.
  * @returns {UseApiObject} Un objet pour gérer les appels à l'API.
  */
 export function useApi(endpoints, endpointsArgs = {}) {
