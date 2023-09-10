@@ -16,14 +16,14 @@ _Note: le **port** du serveur a été **modifié** pour ne pas entrer en conflit
 
 Lance JSON Server pour accéder au données mockées.
 
--   Url: http://localhost:3000
+-   Url: <http://localhost:3000>
 
 -   Endpoints:
 
-    http://localhost:3000/user/:userId\
-    http://localhost:3000/user/:userId/activity\
-    http://localhost:3000/user/:userId/average-sessions\
-    http://localhost:3000/user/:userId/performance
+    <http://localhost:3000/user/:userId>\
+    <http://localhost:3000/user/:userId/activity>\
+    <http://localhost:3000/user/:userId/average-sessions>\
+    <http://localhost:3000/user/:userId/performance>
 
 Pour réaliser le projet j'ai d'abord mis en place un mock de l'API à l'aide de [json-server](https://github.com/typicode/json-server).\
 Vous pourrez trouver le code de ce mock dans le dossier `/mock-api`.\
@@ -136,7 +136,7 @@ Prérequis:
 Une fois vos endpoints et votre gestionnaire d'API configurés:
 
 -   Importez votre objet `endpoints` precedemment défini
--   Importez votre objet `DataLoadingWrapper` depuis `/src/api/components/DataLoadingWrapper`
+-   Importez le composant `DataLoadingWrapper` depuis `/src/api/components/DataLoadingWrapper`
 
 ```jsx
 // Api
