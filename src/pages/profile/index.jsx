@@ -4,8 +4,9 @@ import { Container, ChartsWrapper, ChartsWrapperLeft, ChartsWrapperBottom } from
 import { AppContext } from '../../context'
 
 // Hooks
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useWindowResizing } from '../../hooks'
+import { useParams } from 'react-router'
 
 // Api
 import { endpoints } from '../../constants/api'
@@ -20,12 +21,17 @@ import PerformanceChart from '../../components/performanceChart'
 import ScoreChart from '../../components/scoreChart'
 
 function Page() {
+    const { id } = useParams()
     const { windowIsResizing } = useWindowResizing()
-    const { userId } = useContext(AppContext)
+    const { setUserId } = useContext(AppContext)
+
+    useEffect(() => {
+        setUserId(id)
+    }, [id, setUserId])
 
     return (
         <Container>
-            <DataLoadingWrapper endpoints={Object.values(endpoints)} endpointsArgs={{ userId }}>
+            <DataLoadingWrapper endpoints={Object.values(endpoints)} endpointsArgs={{ userId: id }}>
                 <ProfileHeader endpoints={[endpoints.user]} />
                 {!windowIsResizing && (
                     <ChartsWrapper>

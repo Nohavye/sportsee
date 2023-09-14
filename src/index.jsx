@@ -32,7 +32,7 @@ root.render(
                     <Routes>
                         <Route path="*" element={<ErrorPage />} />
                         <Route path="/" element={<HomePage />} />
-                        <Route path="/profile" element={<ProfilePage />} />
+                        <Route path="/profile/:id" element={<ProfilePage />} />
                         <Route path="/settings" element={<SettingsPage />} />
                         <Route path="/community" element={<CommunityPage />} />
                     </Routes>
