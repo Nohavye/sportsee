@@ -30,14 +30,16 @@ export const setEndpoint = ({ route, field, output }) => {
  * @class
  */
 export class ApiHandler {
+    static _url = null
+
     /**
-     * Crée une nouvelle instance de ApiHandler.
-     * @constructor
+     * Paramétrer ApiHandler.
+     * @static
      * @param {string} url - L'URL de base de l'API.
      * @param {Object.<string, EndpointSettings>} endpoints - Paramètres des endpoints.
      */
-    constructor(url, endpoints) {
-        this._url = url
+    static set(url, endpoints) {
+        ApiHandler._url = url
 
         // Ajoute une propriété 'name' à chaque endpoints paramétrés.
         for (const prop in endpoints) {
@@ -56,11 +58,12 @@ export class ApiHandler {
     /**
      * Fonction interne pour le prétraitement d'un endpoint avant fetch.
      * @private
+     * @static
      * @param {Endpoint} endpoint - Paramètres de endpoint avec le nom.
      * @param {Object} endpointArgs - Arguments spécifiques au endpoint.
      * @returns {ProprocessedEndpoint} Objet représentant le endpoint prétraité.
      */
-    _endpointPreprocessing(endpoint, endpointArgs = {}) {
+    static _endpointPreprocessing(endpoint, endpointArgs = {}) {
         const { name, route, field, output } = endpoint
 
         /**
@@ -78,7 +81,7 @@ export class ApiHandler {
 
         return {
             name,
-            value: `${this._url}${replaceArgs(route, endpointArgs)}`,
+            value: `${ApiHandler._url}${replaceArgs(route, endpointArgs)}`,
             field,
             output,
         }
@@ -87,15 +90,20 @@ export class ApiHandler {
     /**
      * Effectue une requête pour récupérer des données à partir d'un endpoint.
      * @async
+     * @static
      * @param {Endpoint} endpoint - Paramètres de endpoint avec le nom.
      * @param {Object} endpointArgs - Arguments spécifiques au endpoint.
      * @throws {Error} Une erreur si la requête échoue ou si la réponse n'est pas OK.
      * @returns {Promise<Object>} Une promesse résolue avec les données récupérées.
      */
-    async fetchEndpoint(endpoint, endpointsArgs) {
-        const endpointToRetrieve = this._endpointPreprocessing(endpoint, endpointsArgs)
+    static async fetchEndpoint(endpoint, endpointsArgs) {
+        const endpointToRetrieve = ApiHandler._endpointPreprocessing(endpoint, endpointsArgs)
 
         try {
+            if (!ApiHandler._url)
+                throw new Error(
+                    "The API handler is not initialized, please do so using the 'set' function of the handler."
+                )
             const response = await fetch(endpointToRetrieve.value)
             if (response.ok) {
                 let fetchedData = await response.json()

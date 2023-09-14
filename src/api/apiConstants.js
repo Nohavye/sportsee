@@ -44,4 +44,4 @@ export const endpoints = {
 }
 
 /** Gestionnaire de l'API. */
-export const apiHandler = new ApiHandler('http://localhost:3000', endpoints)
+ApiHandler.set('http://localhost:3000', endpoints)

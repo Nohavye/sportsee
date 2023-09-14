@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 
 // Api
-import { apiHandler } from '../apiConstants'
+import { ApiHandler } from '../apiHandler'
 
 // Utils
 import { deepEqual } from '../utils'
@@ -47,7 +47,7 @@ export function useApi(endpoints, endpointsArgs = {}) {
 
             const promises = []
             endpoints.forEach((endpoint) => {
-                promises.push(apiHandler.fetchEndpoint(endpoint, endpointsArgs))
+                promises.push(ApiHandler.fetchEndpoint(endpoint, endpointsArgs))
             })
 
             Promise.all(promises)
