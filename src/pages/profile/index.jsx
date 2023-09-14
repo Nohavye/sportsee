@@ -8,7 +8,7 @@ import { useContext } from 'react'
 import { useWindowResizing } from '../../hooks'
 
 // Api
-import { endpoints } from '../../api/apiConstants'
+import { endpoints } from '../../constants/api'
 import DataLoadingWrapper from '../../api/components/DataLoadingWrapper'
 
 // Components
