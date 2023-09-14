@@ -1,5 +1,5 @@
 // Context, Hooks
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useState } from 'react'
 
 export const AppContext = createContext()
 
