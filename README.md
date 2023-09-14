@@ -16,14 +16,14 @@ _Note: le **port** du serveur a été **modifié** pour ne pas entrer en conflit
 
 Lance JSON Server pour accéder au données mockées.
 
--   Url: <http://localhost:3000>
+-   Url: <http://localhost:3330>
 
 -   Endpoints:
 
-    <http://localhost:3000/user/:userId>\
-    <http://localhost:3000/user/:userId/activity>\
-    <http://localhost:3000/user/:userId/average-sessions>\
-    <http://localhost:3000/user/:userId/performance>
+    <http://localhost:3330/user/:userId>\
+    <http://localhost:3330/user/:userId/activity>\
+    <http://localhost:3330/user/:userId/average-sessions>\
+    <http://localhost:3330/user/:userId/performance>
 
 Pour réaliser le projet j'ai d'abord mis en place un mock de l'API à l'aide de [json-server](https://github.com/typicode/json-server).\
 Vous pourrez trouver le code de ce mock dans le dossier `/mock-api`.\
@@ -74,13 +74,13 @@ export const endpoints = {
 
 ### 2. Paramétrez le gestionnaire d'API
 
-La classe `ApiHandler` est utilisée pour gérer les appels à une API en fournissant une interface pour configurer et effectuer des requêtes vers différents endpoints.
+La classe `ApiHandler` est utilisée pour gérer les appels à une API en fournissant une interface pour configurer et effectuer des requêtes vers différents endpoints. (C'est une classe statique qui ne doit pas être instanciée.)
 
-#### Constructeur:
+#### Fonction set():
 
-`constructor(url: string, endpoints: Object.<string, EndpointSettings>)`
+`ApiHandler.set(url: string, endpoints: Object.<string, EndpointSettings>)`
 
--   Description: Crée une nouvelle instance de `ApiHandler` avec l'URL de base de l'API et la configuration des endpoints.
+-   Description: Initialise `ApiHandler` avec l'URL de base de l'API et la configuration des endpoints.
 
 #### Paramètres:
 
@@ -92,7 +92,7 @@ La classe `ApiHandler` est utilisée pour gérer les appels à une API en fourni
 Ensuite, paramétrez votre gestionnaire d'API:
 
 -   Importez la classe `ApiHandler` depuis `/src/apiHandler.js`
--   Déclarez votre gestionnair d'API avec les paramètres requis
+-   Initialisez votre gestionnair d'API avec les paramètres requis
 
 ```javascript
 // Exemple: fichier 'apiConstants.js'
@@ -104,7 +104,7 @@ export const endpoints = {
 }
 
 // Gestionnaire d'API.
-export const apiHandler = new ApiHandler('http://api.example.com', endpoints)
+ApiHandler.set('http://api.example.com', endpoints)
 ```
 
 ### 3. Utilisez le composant React `DataLoadingWrapper`
